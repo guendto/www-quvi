@@ -1,0 +1,51 @@
+
+
+WWW::Quvi
+============
+
+WWW::Quvi are the Perl bindings for libquvi.
+
+WWW: <http://www-quvi.googlecode.com/>
+GIT: <git://repo.or.cz/www-quvi.git>
+
+
+PREREQUISITES
+
+  * quvi 0.2.5+  <http://quvi.googlecode.com/>
+    - 0.2.0 should work, though some tests e.g. *will* fail (e.g. version checks)
+  * Perl 5.8.9+  <http://perl.org/>
+
+
+INSTALLATION
+
+To install this module, type the following:
+
+    perl Makefile.PL
+    make
+    make test (optional, see notes below)
+    make install (see notes below)
+
+
+WHAT IS NOT IMPLEMENTED
+
+  * Callbacks (e.g. status callback)
+
+  * Multiple download links per video
+
+
+NOTES
+
+* Developed on and for Linux, should port fairly easily to other systems
+
+* You can edit CXXFLAGS LDFLAGS, etc. in Makefile.PL
+    - ExtUtils::MakeMaker supports many more (see the URLs below)
+
+* Set HAVE_INTERNET if you want to run the internet dependant tests
+
+* You can specify an install "prefix" with INSTALL_BASE
+    - e.g. perl Makefile.PL INSTALL_BASE=/usr/local
+
+  More: <http://search.cpan.org/perldoc?ExtUtils::MakeMaker>
+   FAQ: <http://perldoc.perl.org/ExtUtils/MakeMaker/FAQ.html>
+
+

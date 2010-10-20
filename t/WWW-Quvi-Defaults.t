@@ -1,0 +1,102 @@
+
+use warnings;
+use strict;
+
+use Test::More tests => 34;
+BEGIN { use_ok('WWW::Quvi') };
+
+# Version.
+
+like (&WWW::Quvi::version, qr{^\d+.\d+$});
+
+like (&WWW::Quvi::version(WWW::Quvi::ModuleVersion), qr{^\d+.\d+$});
+
+like (
+    &WWW::Quvi::version(WWW::Quvi::libquviVersion), qr{^\d+.\d+.\d+$});
+
+like (
+    &WWW::Quvi::version(WWW::Quvi::libquviVersionLong),
+    qr{^\d+.\d+.\d+.* built on \d+.\d+.\d+ .* (.*)$}
+);
+
+# Options.
+
+my $opts = new WWW::Quvi::Options;
+isa_ok ($opts, 'WWW::Quvi::Options');
+
+is ($opts->{user_agent}, "");
+is ($opts->{http_proxy}, "");
+is ($opts->{format},     "default");
+is ($opts->{verify},     1);
+is ($opts->{verbose_libcurl}, "");
+
+$opts->{user_agent} = "Mozilla/5.0";
+is ($opts->{user_agent}, "Mozilla/5.0");
+
+$opts->{http_proxy} = "http://foo:1234";
+is ($opts->{http_proxy}, "http://foo:1234");
+
+$opts->{format} = "hd";
+is ($opts->{format}, "hd");
+
+$opts->{verify} = 0;
+is ($opts->{verify}, "");
+
+$opts->{verbose_libcurl} = 1;
+is ($opts->{verbose_libcurl}, 1);
+
+# Link.
+
+my $l = new WWW::Quvi::Link;
+isa_ok ($l, 'WWW::Quvi::Link');
+
+is ($l->{content_type}, "");
+is ($l->{file_suffix},  "");
+is ($l->{length_bytes}, -1);
+is ($l->{url},          "");
+
+# Video.
+
+my $v = new WWW::Quvi::Video;
+isa_ok ($v, 'WWW::Quvi::Video');
+
+is ($v->{title},     "");
+is ($v->{host},      "");
+is ($v->{url},       "");
+is ($v->{id},        "");
+is ($v->{ok},        "");
+
+# Query.
+
+my $q = new WWW::Quvi::Query;
+isa_ok ($q, 'WWW::Quvi::Query');
+
+is ($q->{last_error}, "");
+is ($q->{quvi_code},   0);
+is ($q->{resp_code},  -1);
+
+# Websites.
+
+my ($rc, $domain, $formats) = $q->next_website;
+is ($rc, 0);
+like ($domain, qr{^\w+.\w+$});
+like ($formats, qr{^\w+(?:|)});
+
+# QUVIcode aliases.
+
+my @QUVIcode = {
+   WWW::Quvi::OK,
+   WWW::Quvi::Mem,
+   WWW::Quvi::BadHandle,
+   WWW::Quvi::InvArg,
+   WWW::Quvi::CurlInit,
+   WWW::Quvi::Last,
+   WWW::Quvi::AbortedByCallback,
+   WWW::Quvi::LuaInit,
+   WWW::Quvi::NoLuaWebsite,
+   WWW::Quvi::PcreError,
+   WWW::Quvi::NoSupport,
+   WWW::Quvi::CurlError,
+   WWW::Quvi::IconvError,
+   WWW::Quvi::LuaError,
+};

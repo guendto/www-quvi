@@ -1,0 +1,167 @@
+=head1 NAME
+
+WWW::Quvi - Perl extension interface for libquvi
+
+=head1 SYNOPSIS
+
+    use WWW::Quvi;
+    my $opts  = new WWW::Quvi::Options;
+    my $query = new WWW::Quvi::Query;
+    my $video = $query->parse ($url, $opts);
+    if ($video->{ok}) {
+        # ...
+    }
+    else {
+        die "libquvi: error: $query->{last_error}";
+    }
+
+=head1 DESCRIPTION
+
+WWW::Quvi is a Perl extension interface for libquvi.
+
+=head1 DOCUMENTATION
+
+This module provides a Perl interface to libquvi. This documentation
+contains the Perl specific details and some sample code. The libquvi
+documentation should be consulted for the API details at
+L<http://quvi.googlecode.com/>.
+
+=head1 WWW::Quvi::version
+
+A wrapper function that returns WWW::Quvi version and libquvi version
+information.
+
+    use warnings;
+    use strict;
+
+    print WWW::Quvi::version; # Module version
+    print WWW::Quvi::version (WWW::Quvi::ModuleVersion); # Same as above.
+    print WWW::Quvi::version (WWW::Quvi::libquviVersion);
+    print WWW::Quvi::version (WWW::Quvi::libquviVersionLong);
+
+=head1 WWW::Quvi::Options
+
+A container hash for the options used with libquvi that would normally
+(using the C API) be set with C<quvi_setopt(3)>.
+
+    use warnings;
+    use strict;
+
+    use WWW::Quvi;
+
+    my $opts = new WWW::Quvi::Options;
+
+    $opts->{user_agent}      = 'Foo/1.0';         # Default: ""
+    $opts->{http_proxy}      = 'http://foo:1234'; # Default: ""
+    $opts->{format}          = 'hd';              # Default: "default"
+    $opts->{verify}          = 0;                 # Default: 1
+    $opts->{verbose_libcurl} = 1;                 # Default: 0
+
+=head1 WWW::Quvi::Video
+
+A container hash that holds the parsed video details.
+
+    print "
+        $video->{title}
+        $video->{host}
+        $video->{url}
+        $video->{id}
+        $video->{ok}
+    ";
+
+=head1 WWW::Quvi::Link
+
+A container hash that holds the parsed video link details. A member of
+the L</WWW::Quvi::Video> hash.
+
+    print "
+        $video->{link}->{content_type}
+        $video->{link}->{file_suffix}
+        $video->{link}->{length_bytes}
+        $video->{link}->{url}
+    ";
+
+=head1 WWW::Quvi::Query
+
+Glues the above together.
+
+    # An Options instance is required.
+    # See WWW::Quvi::Options above for the available keys.
+
+    my $opts  = new WWW::Quvi::Options;
+
+    # Initializes libquvi (quvi_init), croaks if that fails.
+
+    my $query = new WWW::Quvi::Query;
+
+    # Perform a query.
+
+    my $url   = "http://www.youtube.com/watch?v=DUM1284TqFc";
+    my $video = $query->parse ($url, $opts);
+
+    if ($video->{ok}) {
+        # Do whatever with the parsed video details.
+    }
+    else {
+        die "libquvi: error: $query->{last_error}";
+        # Other things to check:
+        #   * $query->{quvi_code}
+        #   * $query->{resp_code}
+    }
+
+    # Iterate supported websites:
+
+    while (1) {
+        my ($done, $domain, $formats) = $query->next_website;
+
+        last if $done;
+
+        print "$domain\t$formats\n";
+    }
+
+=head1 NOT IMPLEMENTED
+
+=over 4
+
+=item B<Callbacks>
+
+e.g. quvi_callback_status, quvi_callback_write.
+
+=item B<Video segments>
+
+libquvi supports these for historical reasons only. Basically each
+video would have one or more video segments which had to be
+downloaded as separately.
+
+=back
+
+=head1 AUTHOR
+
+Toni Gundogdu <legatvs at sign gmail com>.
+
+=head1 COPYRIGHT
+
+Copyright (C) 2010 Toni Gundogdu.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see L<http://www.gnu.org/licenses/>.
+
+=head1 SEE ALSO
+
+E<lt>http://www-quvi.googlecode.com/E<gt>
+
+E<lt>http://quvi.googlecode.com/E<gt>
+
+E<lt>git://repo.or.cz/www-quvi.gitE<gt>
+
+=cut
