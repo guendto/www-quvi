@@ -15,8 +15,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef quvicpp_h
-#define quvicpp_h
+#ifndef Quvi_h
+#define Quvi_h
 
 #include <quvi/quvi.h>
 
