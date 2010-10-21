@@ -13,6 +13,7 @@ Quvi_wrap.cxx
 README
 swigity.sh
 t/WWW-Quvi-Defaults.t
+t/WWW-Quvi-Pod.t
 t/WWW-Quvi-Query.t
 TODO
 Video.cxx
