@@ -11,7 +11,7 @@ my $CXXFLAGS = '-Wall';
 
 WriteMakefile(
     NAME            => 'WWW::Quvi',
-    VERSION         => '0.01',
+    VERSION         => '0.02',
     CC              => $CXX,
     CCFLAGS         => $CXXFLAGS,
     LD              => $LD,
@@ -24,5 +24,10 @@ WriteMakefile(
         'ABSTRACT' => 'Perl bindings for libquvi'
         )
     : (),
+    'PREREQ_PM' => {
+# Earlier versions may work. The module has been confirmed to work with:
+# Optional:
+'Test::Pod' => 1.44, # <http://search.cpan.org/perldoc?Test::Pod>
+    },
     LICENSE        => 'GPLv3+',
 );
