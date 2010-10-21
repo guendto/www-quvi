@@ -1,4 +1,8 @@
 Revision history for Perl extension WWW::Quvi.
 
+0.02
+        - Add t/WWW-Quvi-Pod.t
+        - Add PREREQ_PM to Makefile.PL
+
 0.01  Wed Oct 20 2010
         - Initial release
