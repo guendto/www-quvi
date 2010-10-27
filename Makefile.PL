@@ -4,10 +4,19 @@ use strict;
 
 use 5.008009;
 use ExtUtils::MakeMaker;
+use ExtUtils::PkgConfig;
+use ExtUtils::Depends;
 
+my $CXXFLAGS = '-Wall';
 my $CXX      = 'g++';
 my $LD       = 'g++';
-my $CXXFLAGS = '-Wall';
+
+my %pkgcfg_libquvi = ExtUtils::PkgConfig->find ('libquvi >= 0.2.5');
+
+my @deps;
+my $libquvi = ExtUtils::Depends->new ('libquvi', @deps);
+$libquvi->set_inc  ($pkgcfg_libquvi{cflags});
+$libquvi->set_libs ($pkgcfg_libquvi{libs});
 
 WriteMakefile(
     NAME            => 'WWW::Quvi',
@@ -15,8 +24,6 @@ WriteMakefile(
     CC              => $CXX,
     CCFLAGS         => $CXXFLAGS,
     LD              => $LD,
-    LIBS            => ['-L/usr/lib', '-lquvi'],
-    INC             => '-I/usr/include',
     OBJECT          =>
         'Quvi_wrap.o Options.o Link.o Video.o Query.o',
     ( $[ >= 5.8 )
@@ -29,5 +36,6 @@ WriteMakefile(
 # Optional:
 'Test::Pod' => 1.44, # <http://search.cpan.org/perldoc?Test::Pod>
     },
-    LICENSE        => 'GPLv3+',
+    LICENSE        => 'gpl',
+    $libquvi->get_makefile_vars,
 );
