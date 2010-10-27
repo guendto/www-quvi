@@ -1,6 +1,6 @@
 Revision history for Perl extension WWW::Quvi.
 
-0.02
+0.02  Wed Oct 27 2010
         - Use ExtUtils::PkgConfig, ExtUtils::Depends in Makefile.PL
         - Add PREREQ_PM to Makefile.PL
         - Add t/WWW-Quvi-Pod.t
