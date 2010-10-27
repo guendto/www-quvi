@@ -13,8 +13,7 @@ my $LD       = 'g++';
 
 my %pkgcfg_libquvi = ExtUtils::PkgConfig->find ('libquvi >= 0.2.5');
 
-my @deps;
-my $libquvi = ExtUtils::Depends->new ('libquvi', @deps);
+my $libquvi = ExtUtils::Depends->new ('libquvi');
 $libquvi->set_inc  ($pkgcfg_libquvi{cflags});
 $libquvi->set_libs ($pkgcfg_libquvi{libs});
 
