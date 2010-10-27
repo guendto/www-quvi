@@ -5,10 +5,9 @@ WWW::Quvi
 
 WWW::Quvi are the Perl bindings for libquvi.
 
-This module provides a Perl interface to libquvi. This documentation
-contains the Perl specific details and some sample code. The libquvi
-documentation should be consulted for the API details at
-<http://quvi.googlecode.com/>.
+This module provides a Perl interface to libquvi. This documentation contains
+the Perl specific details and some sample code. The libquvi documentation
+should be consulted for the API details at <http://quvi.googlecode.com/>.
 
 WWW: <http://www-quvi.googlecode.com/>
 GIT: <git://repo.or.cz/www-quvi.git>
@@ -46,17 +45,20 @@ WHAT IS NOT IMPLEMENTED
 
 NOTES
 
-* Developed on and for Linux, should port fairly easily to other systems
+* Developed on and for Linux, should port fairly easily to other systems,
+    - Randomly tested on FreeBSD
 
 * You can edit CXXFLAGS LDFLAGS, etc. in Makefile.PL
-    - ExtUtils::MakeMaker supports many more (see the URLs below)
-
-* Set HAVE_INTERNET if you want to run the internet dependant tests
+    - ExtUtils::MakeMaker supports many more (URLs under "See also")
 
 * You can specify an install "prefix" with INSTALL_BASE
     - e.g. perl Makefile.PL INSTALL_BASE=/usr/local
 
-  More: <http://search.cpan.org/perldoc?ExtUtils::MakeMaker>
-   FAQ: <http://perldoc.perl.org/ExtUtils/MakeMaker/FAQ.html>
+* Set HAVE_INTERNET if you want to run the tests depending on the Internet
+    - e.g. env HAVE_INTERNET=1 make test
+
+* See also:
+    - <http://search.cpan.org/perldoc?ExtUtils::MakeMaker>
+    - <http://perldoc.perl.org/ExtUtils/MakeMaker/FAQ.html>
 
 
