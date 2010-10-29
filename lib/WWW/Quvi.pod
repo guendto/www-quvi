@@ -17,7 +17,8 @@ WWW::Quvi - Perl extension interface for libquvi
 
 =head1 DESCRIPTION
 
-WWW::Quvi is a Perl extension interface for libquvi.
+WWW::Quvi provides a Perl interface to libquvi, a library for parsing video
+download links.
 
 =head1 DOCUMENTATION
 
