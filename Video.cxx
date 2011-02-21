@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright (C) 2010 Toni Gundogdu.
 *
 * This program is free software: you can redistribute it and/or modify
@@ -21,36 +21,42 @@
 
 Video::Video () :ok (false) { }
 
-Video::Video (quvi_video_t qv) :ok (true) {
+Video::Video (quvi_video_t qv) :ok (true)
+{
 #define _wrap(id,dst,type) \
     do { type t; quvi_getprop(qv,id,&t); dst=t; } while (0)
-    _wrap(QUVIPROP_HOSTID,      host,       char*);
-    _wrap(QUVIPROP_PAGEURL,     url,        char*);
-    _wrap(QUVIPROP_PAGETITLE,   title,      char*);
-    _wrap(QUVIPROP_VIDEOID,     id,         char*);
+  _wrap(QUVIPROP_HOSTID,      host,       char*);
+  _wrap(QUVIPROP_PAGEURL,     url,        char*);
+  _wrap(QUVIPROP_PAGETITLE,   title,      char*);
+  _wrap(QUVIPROP_VIDEOID,     id,         char*);
 #undef _wrap
-    link = Link (qv);
-    quvi_parse_close (&qv);
+  link = Link (qv);
+  quvi_parse_close (&qv);
 }
 
-Video::Video (const Video& v) :ok (false) { _swap (v); }
+Video::Video (const Video& v) :ok (false)
+{
+  _swap (v);
+}
 
 Video&
-Video::operator=(const Video& v) {
-    if (this != &v) _swap (v);
-    return *this;
+Video::operator=(const Video& v)
+{
+  if (this != &v) _swap (v);
+  return *this;
 }
 
 Video::~Video () { }
 
 void
-Video::_swap (const Video& v) {
-    title       = v.title;
-    host        = v.host;
-    url         = v.url;
-    id          = v.id;
-    link        = v.link;
-    ok          = v.ok;
+Video::_swap (const Video& v)
+{
+  title       = v.title;
+  host        = v.host;
+  url         = v.url;
+  id          = v.id;
+  link        = v.link;
+  ok          = v.ok;
 }
 
 

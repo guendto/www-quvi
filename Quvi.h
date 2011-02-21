@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright (C) 2010 Toni Gundogdu.
 *
 * This program is free software: you can redistribute it and/or modify
@@ -25,77 +25,81 @@ class Query;
 class Video;
 class Link;
 
-class Options {
+class Options
+{
 public:
-    Options ();
-    Options (const Options&);
-    Options& operator=(const Options&);
-    virtual ~Options();
+  Options ();
+  Options (const Options&);
+  Options& operator=(const Options&);
+  virtual ~Options();
 private:
-    void _swap (const Options&);
+  void _swap (const Options&);
 public:
-    std::string user_agent;
-    std::string http_proxy;
-    bool verbose_libcurl;
-    std::string format;
-    bool verify;
-    bool shortened;
-    long category;
+  std::string user_agent;
+  std::string http_proxy;
+  bool verbose_libcurl;
+  std::string format;
+  bool verify;
+  bool shortened;
+  long category;
 };
 
-class Link {
+class Link
+{
 public:
-    Link ();
-    Link (quvi_video_t);
-    Link (const Link&);
-    Link& operator=(const Link&);
-    virtual ~Link();
+  Link ();
+  Link (quvi_video_t);
+  Link (const Link&);
+  Link& operator=(const Link&);
+  virtual ~Link();
 private:
-    void _swap (const Link&);
+  void _swap (const Link&);
 public:
-    std::string content_type;
-    std::string file_suffix;
-    double length_bytes;
-    std::string url;
+  std::string content_type;
+  std::string file_suffix;
+  double length_bytes;
+  std::string url;
 };
 
-class Video {
+class Video
+{
 public:
-    Video ();
-    Video (quvi_video_t);
-    Video (const Video&);
-    Video& operator=(const Video&);
-    virtual ~Video();
+  Video ();
+  Video (quvi_video_t);
+  Video (const Video&);
+  Video& operator=(const Video&);
+  virtual ~Video();
 private:
-    void _swap (const Video&);
+  void _swap (const Video&);
 public:
-    std::string title;
-    std::string host;
-    std::string url;
-    std::string id;
-    Link link;
-    bool ok;
+  std::string title;
+  std::string host;
+  std::string url;
+  std::string id;
+  Link link;
+  bool ok;
 };
 
-class Query {
+class Query
+{
 public:
-    Query ();
-    Query (const Query&);
-    Query& operator=(const Query&);
-    virtual ~Query();
+  Query ();
+  Query (const Query&);
+  Query& operator=(const Query&);
+  virtual ~Query();
 public:
-    Video parse (const std::string&, const Options&);
-    int   next_website (std::string&, std::string&);
+  Video parse (const std::string&, const Options&);
+  int   next_website (std::string&, std::string&);
 private:
-    void _init ();
-    void _close ();
+  void _init ();
+  void _close ();
 private:
-    quvi_t _quvi;
-    void *_curl;
+  quvi_t _quvi;
+  void *_curl;
 public:
-    std::string last_error;
-    long quvi_code;
-    long resp_code;
+  std::string last_error;
+  long quvi_code;
+  long resp_code;
 };
 
 #endif
