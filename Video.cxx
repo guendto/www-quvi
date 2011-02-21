@@ -59,4 +59,4 @@ Video::_swap (const Video& v)
   ok          = v.ok;
 }
 
-
+// vim: set ts=2 sw=2 tw=72 expandtab:

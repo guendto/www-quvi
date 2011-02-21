@@ -51,4 +51,4 @@ Options::_swap (const Options& o)
   category        = o.category;
 }
 
-
+// vim: set ts=2 sw=2 tw=72 expandtab:

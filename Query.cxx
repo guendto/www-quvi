@@ -126,4 +126,4 @@ Query::next_website (std::string& domain, std::string& formats)
   return static_cast<int>(rc);
 }
 
-
+// vim: set ts=2 sw=2 tw=72 expandtab:

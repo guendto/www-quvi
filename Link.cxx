@@ -54,4 +54,4 @@ Link::_swap (const Link& l)
   length_bytes = l.length_bytes;
 }
 
-
+// vim: set ts=2 sw=2 tw=72 expandtab:
