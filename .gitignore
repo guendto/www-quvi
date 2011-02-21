@@ -1,3 +1,5 @@
 TODO*
 patches/
 *.gz
+scripts/
+Makefile.old
