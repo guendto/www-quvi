@@ -1,5 +1,6 @@
 TODO*
 patches/
+*.patch
 *.gz
 scripts/
 Makefile.old
