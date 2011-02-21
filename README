@@ -16,9 +16,7 @@ GIT: <git://repo.or.cz/www-quvi.git>
 
 PREREQUISITES
 
-  * quvi 0.2.5+  <http://quvi.googlecode.com/>
-    - 0.2.0 should be OK, though some WWW::Quvi tests (e.g. version) *will* fail
-
+  * quvi 0.2.12+ <http://quvi.googlecode.com/>
   * Perl 5.8.9+  <http://perl.org/>
 
 Additionally (to build):

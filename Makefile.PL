@@ -11,7 +11,7 @@ my $CXXFLAGS = '-Wall';
 my $CXX      = 'g++';
 my $LD       = 'g++';
 
-my %pkgcfg_libquvi = ExtUtils::PkgConfig->find ('libquvi >= 0.2.5');
+my %pkgcfg_libquvi = ExtUtils::PkgConfig->find ('libquvi >= 0.2.12');
 
 my $libquvi = ExtUtils::Depends->new ('libquvi');
 $libquvi->set_inc  ($pkgcfg_libquvi{cflags});
