@@ -5,6 +5,7 @@ lib/WWW/Quvi.pod
 Link.cxx
 Makefile.PL
 MANIFEST
+MANIFEST.SKIP
 Options.cxx
 Query.cxx
 Quvi.h
