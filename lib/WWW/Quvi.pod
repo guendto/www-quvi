@@ -128,7 +128,7 @@ Glues the above together.
 
     print
         $query->supported("http://dai.ly") != WWW::Quvi::OK
-        ? "no support"
+        ? $query->{last_error}
         : "supported";
 
 =head1 NOT IMPLEMENTED

@@ -131,9 +131,17 @@ Query::next_website (std::string& domain, std::string& formats)
 int
 Query::supported (const std::string& url)
 {
-  const QUVIcode rc =
-    quvi_supported (_quvi, const_cast<char*>(url.c_str()));
-  return static_cast<int>(rc);
+  quvi_code = quvi_supported (_quvi, const_cast<char*>(url.c_str()));
+
+  if (quvi_code != QUVI_OK)
+    {
+      const char *e =
+        quvi_strerror (_quvi, static_cast<QUVIcode>(quvi_code));
+
+      last_error = std::string (e);
+    }
+
+  return static_cast<int>(quvi_code);
 }
 
 // vim: set ts=2 sw=2 tw=72 expandtab:
