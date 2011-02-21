@@ -57,6 +57,7 @@ A container hash for the options used with libquvi that would normally
     $opts->{format}          = 'hd';              # Default: "default"
     $opts->{verify}          = 0;                 # Default: 1
     $opts->{verbose_libcurl} = 1;                 # Default: 0
+    $opts->{shortened}       = 0;                 # Default: 1
 
 =head1 WWW::Quvi::Video
 

@@ -2420,6 +2420,71 @@ XS(_wrap_Options_verify_get) {
 }
 
 
+XS(_wrap_Options_shortened_set) {
+  {
+    Options *arg1 = (Options *) 0 ;
+    bool arg2 ;
+    void *argp1 = 0 ;
+    int res1 = 0 ;
+    bool val2 ;
+    int ecode2 = 0 ;
+    int argvi = 0;
+    dXSARGS;
+    
+    if ((items < 2) || (items > 2)) {
+      SWIG_croak("Usage: Options_shortened_set(self,shortened);");
+    }
+    res1 = SWIG_ConvertPtr(ST(0), &argp1,SWIGTYPE_p_Options, 0 |  0 );
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Options_shortened_set" "', argument " "1"" of type '" "Options *""'"); 
+    }
+    arg1 = reinterpret_cast< Options * >(argp1);
+    ecode2 = SWIG_AsVal_bool SWIG_PERL_CALL_ARGS_2(ST(1), &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Options_shortened_set" "', argument " "2"" of type '" "bool""'");
+    } 
+    arg2 = static_cast< bool >(val2);
+    if (arg1) (arg1)->shortened = arg2;
+    ST(argvi) = sv_newmortal();
+    
+    
+    XSRETURN(argvi);
+  fail:
+    
+    
+    SWIG_croak_null();
+  }
+}
+
+
+XS(_wrap_Options_shortened_get) {
+  {
+    Options *arg1 = (Options *) 0 ;
+    void *argp1 = 0 ;
+    int res1 = 0 ;
+    int argvi = 0;
+    bool result;
+    dXSARGS;
+    
+    if ((items < 1) || (items > 1)) {
+      SWIG_croak("Usage: Options_shortened_get(self);");
+    }
+    res1 = SWIG_ConvertPtr(ST(0), &argp1,SWIGTYPE_p_Options, 0 |  0 );
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Options_shortened_get" "', argument " "1"" of type '" "Options *""'"); 
+    }
+    arg1 = reinterpret_cast< Options * >(argp1);
+    result = (bool) ((arg1)->shortened);
+    ST(argvi) = SWIG_From_bool  SWIG_PERL_CALL_ARGS_1(static_cast< bool >(result)); argvi++ ;
+    
+    XSRETURN(argvi);
+  fail:
+    
+    SWIG_croak_null();
+  }
+}
+
+
 XS(_wrap_delete_Options) {
   {
     Options *arg1 = (Options *) 0 ;
@@ -3159,6 +3224,8 @@ static swig_command_info swig_commands[] = {
 {"WWW::Quvic::Options_format_get", _wrap_Options_format_get},
 {"WWW::Quvic::Options_verify_set", _wrap_Options_verify_set},
 {"WWW::Quvic::Options_verify_get", _wrap_Options_verify_get},
+{"WWW::Quvic::Options_shortened_set", _wrap_Options_shortened_set},
+{"WWW::Quvic::Options_shortened_get", _wrap_Options_shortened_get},
 {"WWW::Quvic::delete_Options", _wrap_delete_Options},
 {"WWW::Quvic::new_Link", _wrap_new_Link},
 {"WWW::Quvic::Link_content_type_get", _wrap_Link_content_type_get},

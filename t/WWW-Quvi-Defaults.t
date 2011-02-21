@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 34;
+use Test::More tests => 36;
 BEGIN { use_ok('WWW::Quvi') };
 
 # Version.
@@ -29,6 +29,7 @@ is ($opts->{http_proxy}, "");
 is ($opts->{format},     "default");
 is ($opts->{verify},     1);
 is ($opts->{verbose_libcurl}, "");
+is ($opts->{shortened},  1);
 
 $opts->{user_agent} = "Mozilla/5.0";
 is ($opts->{user_agent}, "Mozilla/5.0");
@@ -44,6 +45,9 @@ is ($opts->{verify}, "");
 
 $opts->{verbose_libcurl} = 1;
 is ($opts->{verbose_libcurl}, 1);
+
+$opts->{shortened} = 0;
+is ($opts->{shortened}, "");
 
 # Link.
 

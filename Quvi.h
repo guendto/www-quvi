@@ -39,6 +39,7 @@ public:
     bool verbose_libcurl;
     std::string format;
     bool verify;
+    bool shortened;
 };
 
 class Link {

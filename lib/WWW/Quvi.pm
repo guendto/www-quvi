@@ -74,6 +74,8 @@ sub new {
 *swig_format_set = *WWW::Quvic::Options_format_set;
 *swig_verify_get = *WWW::Quvic::Options_verify_get;
 *swig_verify_set = *WWW::Quvic::Options_verify_set;
+*swig_shortened_get = *WWW::Quvic::Options_shortened_get;
+*swig_shortened_set = *WWW::Quvic::Options_shortened_set;
 sub DESTROY {
     return unless $_[0]->isa('HASH');
     my $self = tied(%{$_[0]});

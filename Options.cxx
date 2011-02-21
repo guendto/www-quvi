@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright (C) 2010 Toni Gundogdu.
 *
 * This program is free software: you can redistribute it and/or modify
@@ -20,27 +20,34 @@
 #include "Quvi.h"
 
 Options::Options ()
-    :verbose_libcurl (false), format ("default"), verify (true) { }
+  :verbose_libcurl (false), format ("default"), verify (true),
+   shortened(true) { }
 
 Options::Options (const Options& o)
-    :verbose_libcurl (false), format ("default"), verify (true)
-    { _swap (o); }
+  :verbose_libcurl (false), format ("default"), verify (true),
+   shortened(true)
+{
+  _swap (o);
+}
 
 Options&
-Options::operator=(const Options& o) {
-    if (this != &o) _swap (o);
-    return *this;
+Options::operator=(const Options& o)
+{
+  if (this != &o) _swap (o);
+  return *this;
 }
 
 Options::~Options () { }
 
 void
-Options::_swap (const Options& o) {
-    verbose_libcurl = o.verbose_libcurl;
-    user_agent      = o.user_agent;
-    http_proxy      = o.http_proxy;
-    format          = o.format;
-    verify          = o.verify;
+Options::_swap (const Options& o)
+{
+  verbose_libcurl = o.verbose_libcurl;
+  user_agent      = o.user_agent;
+  http_proxy      = o.http_proxy;
+  format          = o.format;
+  verify          = o.verify;
+  shortened       = o.shortened;
 }
 
 
