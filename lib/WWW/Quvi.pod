@@ -45,19 +45,20 @@ information.
 A container hash for the options used with libquvi that would normally
 (using the C API) be set with C<quvi_setopt(3)>.
 
-    use warnings;
-    use strict;
+ use warnings;
+ use strict;
 
-    use WWW::Quvi;
+ use WWW::Quvi;
 
-    my $opts = new WWW::Quvi::Options;
+ my $opts = new WWW::Quvi::Options;
 
-    $opts->{user_agent}      = 'Foo/1.0';         # Default: ""
-    $opts->{http_proxy}      = 'http://foo:1234'; # Default: ""
-    $opts->{format}          = 'hd';              # Default: "default"
-    $opts->{verify}          = 0;                 # Default: 1
-    $opts->{verbose_libcurl} = 1;                 # Default: 0
-    $opts->{shortened}       = 0;                 # Default: 1
+ $opts->{user_agent}      = 'Foo/1.0';              # Default: ""
+ $opts->{http_proxy}      = 'http://foo:1234';      # Default: ""
+ $opts->{format}          = 'hd';                   # Default: "default"
+ $opts->{verify}          = 0;                      # Default: 1
+ $opts->{verbose_libcurl} = 1;                      # Default: 0
+ $opts->{shortened}       = 0;                      # Default: 1
+ $opts->{category}        = WWW::Quvi::ProtoAll;    # Default: ProtoHttp
 
 =head1 WWW::Quvi::Video
 

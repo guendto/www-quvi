@@ -40,6 +40,7 @@ public:
     std::string format;
     bool verify;
     bool shortened;
+    long category;
 };
 
 class Link {

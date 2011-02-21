@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 36;
+use Test::More tests => 38;
 BEGIN { use_ok('WWW::Quvi') };
 
 # Version.
@@ -30,6 +30,7 @@ is ($opts->{format},     "default");
 is ($opts->{verify},     1);
 is ($opts->{verbose_libcurl}, "");
 is ($opts->{shortened},  1);
+is ($opts->{category},   WWW::Quvi::ProtoHttp);
 
 $opts->{user_agent} = "Mozilla/5.0";
 is ($opts->{user_agent}, "Mozilla/5.0");
@@ -48,6 +49,9 @@ is ($opts->{verbose_libcurl}, 1);
 
 $opts->{shortened} = 0;
 is ($opts->{shortened}, "");
+
+$opts->{category} = WWW::Quvi::ProtoMms;
+is ($opts->{category}, WWW::Quvi::ProtoMms);
 
 # Link.
 
@@ -103,4 +107,15 @@ my @QUVIcode = {
    WWW::Quvi::CurlError,
    WWW::Quvi::IconvError,
    WWW::Quvi::LuaError,
+};
+
+# QUVIcategory aliases.
+
+my @QUVIcategory = {
+   WWW::Quvi::ProtoHttp,
+   WWW::Quvi::ProtoMms,
+   WWW::Quvi::ProtoRtsp,
+   WWW::Quvi::ProtoRtmp,
+   WWW::Quvi::ProtoAll,
+0xffff # Pad to prevent "Odd number of elements in anonymous hash" warning
 };

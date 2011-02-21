@@ -53,6 +53,14 @@ IconvError,      /* QUVI_ICONV */
 LuaError,        /* QUVI_LUA */
 } quviCode;
 
+typedef enum {
+ProtoHttp = 0x1,
+ProtoMms  = 0x2,
+ProtoRtsp = 0x4,
+ProtoRtmp = 0x8,
+ProtoAll  = (ProtoHttp|ProtoMms|ProtoRtsp|ProtoRtmp)
+} quviCategory;
+
 %}
 
 class Options {
@@ -65,6 +73,7 @@ public:
     std::string format;
     bool verify;
     bool shortened;
+    long category;
 };
 
 class Link {

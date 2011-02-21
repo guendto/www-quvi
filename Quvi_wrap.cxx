@@ -1520,11 +1520,12 @@ SWIG_Perl_SetModule(swig_module_info *module) {
 #define SWIGTYPE_p_Query swig_types[2]
 #define SWIGTYPE_p_Video swig_types[3]
 #define SWIGTYPE_p_char swig_types[4]
-#define SWIGTYPE_p_quviCode swig_types[5]
-#define SWIGTYPE_p_quviVersion swig_types[6]
-#define SWIGTYPE_p_std__string swig_types[7]
-static swig_type_info *swig_types[9];
-static swig_module_info swig_module = {swig_types, 8, 0, 0, 0, 0};
+#define SWIGTYPE_p_quviCategory swig_types[5]
+#define SWIGTYPE_p_quviCode swig_types[6]
+#define SWIGTYPE_p_quviVersion swig_types[7]
+#define SWIGTYPE_p_std__string swig_types[8]
+static swig_type_info *swig_types[10];
+static swig_module_info swig_module = {swig_types, 9, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -1608,6 +1609,14 @@ CurlError,       /* QUVI_CURL */
 IconvError,      /* QUVI_ICONV */
 LuaError,        /* QUVI_LUA */
 } quviCode;
+
+typedef enum {
+ProtoHttp = 0x1,
+ProtoMms  = 0x2,
+ProtoRtsp = 0x4,
+ProtoRtmp = 0x8,
+ProtoAll  = (ProtoHttp|ProtoMms|ProtoRtsp|ProtoRtmp)
+} quviCategory;
 
 
 
@@ -2485,6 +2494,71 @@ XS(_wrap_Options_shortened_get) {
 }
 
 
+XS(_wrap_Options_category_set) {
+  {
+    Options *arg1 = (Options *) 0 ;
+    long arg2 ;
+    void *argp1 = 0 ;
+    int res1 = 0 ;
+    long val2 ;
+    int ecode2 = 0 ;
+    int argvi = 0;
+    dXSARGS;
+    
+    if ((items < 2) || (items > 2)) {
+      SWIG_croak("Usage: Options_category_set(self,category);");
+    }
+    res1 = SWIG_ConvertPtr(ST(0), &argp1,SWIGTYPE_p_Options, 0 |  0 );
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Options_category_set" "', argument " "1"" of type '" "Options *""'"); 
+    }
+    arg1 = reinterpret_cast< Options * >(argp1);
+    ecode2 = SWIG_AsVal_long SWIG_PERL_CALL_ARGS_2(ST(1), &val2);
+    if (!SWIG_IsOK(ecode2)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Options_category_set" "', argument " "2"" of type '" "long""'");
+    } 
+    arg2 = static_cast< long >(val2);
+    if (arg1) (arg1)->category = arg2;
+    ST(argvi) = sv_newmortal();
+    
+    
+    XSRETURN(argvi);
+  fail:
+    
+    
+    SWIG_croak_null();
+  }
+}
+
+
+XS(_wrap_Options_category_get) {
+  {
+    Options *arg1 = (Options *) 0 ;
+    void *argp1 = 0 ;
+    int res1 = 0 ;
+    int argvi = 0;
+    long result;
+    dXSARGS;
+    
+    if ((items < 1) || (items > 1)) {
+      SWIG_croak("Usage: Options_category_get(self);");
+    }
+    res1 = SWIG_ConvertPtr(ST(0), &argp1,SWIGTYPE_p_Options, 0 |  0 );
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Options_category_get" "', argument " "1"" of type '" "Options *""'"); 
+    }
+    arg1 = reinterpret_cast< Options * >(argp1);
+    result = (long) ((arg1)->category);
+    ST(argvi) = SWIG_From_long  SWIG_PERL_CALL_ARGS_1(static_cast< long >(result)); argvi++ ;
+    
+    XSRETURN(argvi);
+  fail:
+    
+    SWIG_croak_null();
+  }
+}
+
+
 XS(_wrap_delete_Options) {
   {
     Options *arg1 = (Options *) 0 ;
@@ -3163,6 +3237,7 @@ static swig_type_info _swigt__p_Options = {"_p_Options", "Options *", 0, 0, (voi
 static swig_type_info _swigt__p_Query = {"_p_Query", "Query *", 0, 0, (void*)"WWW::Quvi::Query", 0};
 static swig_type_info _swigt__p_Video = {"_p_Video", "Video *", 0, 0, (void*)"WWW::Quvi::Video", 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_quviCategory = {"_p_quviCategory", "enum quviCategory *|quviCategory *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_quviCode = {"_p_quviCode", "enum quviCode *|quviCode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_quviVersion = {"_p_quviVersion", "enum quviVersion *|quviVersion *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
@@ -3173,6 +3248,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Query,
   &_swigt__p_Video,
   &_swigt__p_char,
+  &_swigt__p_quviCategory,
   &_swigt__p_quviCode,
   &_swigt__p_quviVersion,
   &_swigt__p_std__string,
@@ -3183,6 +3259,7 @@ static swig_cast_info _swigc__p_Options[] = {  {&_swigt__p_Options, 0, 0, 0},{0,
 static swig_cast_info _swigc__p_Query[] = {  {&_swigt__p_Query, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Video[] = {  {&_swigt__p_Video, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_quviCategory[] = {  {&_swigt__p_quviCategory, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_quviCode[] = {  {&_swigt__p_quviCode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_quviVersion[] = {  {&_swigt__p_quviVersion, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
@@ -3193,6 +3270,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Query,
   _swigc__p_Video,
   _swigc__p_char,
+  _swigc__p_quviCategory,
   _swigc__p_quviCode,
   _swigc__p_quviVersion,
   _swigc__p_std__string,
@@ -3226,6 +3304,8 @@ static swig_command_info swig_commands[] = {
 {"WWW::Quvic::Options_verify_get", _wrap_Options_verify_get},
 {"WWW::Quvic::Options_shortened_set", _wrap_Options_shortened_set},
 {"WWW::Quvic::Options_shortened_get", _wrap_Options_shortened_get},
+{"WWW::Quvic::Options_category_set", _wrap_Options_category_set},
+{"WWW::Quvic::Options_category_get", _wrap_Options_category_get},
 {"WWW::Quvic::delete_Options", _wrap_delete_Options},
 {"WWW::Quvic::new_Link", _wrap_new_Link},
 {"WWW::Quvic::Link_content_type_get", _wrap_Link_content_type_get},
@@ -3630,6 +3710,31 @@ XS(SWIG_init) {
   /*@SWIG:/usr/share/swig/2.0.1/perl5/perltypemaps.swg,65,%set_constant@*/ do {
     SV *sv = get_sv((char*) SWIG_prefix "LuaError", TRUE | 0x2 | GV_ADDMULTI);
     sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(LuaError)));
+    SvREADONLY_on(sv);
+  } while(0) /*@SWIG@*/;
+  /*@SWIG:/usr/share/swig/2.0.1/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+    SV *sv = get_sv((char*) SWIG_prefix "ProtoHttp", TRUE | 0x2 | GV_ADDMULTI);
+    sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(ProtoHttp)));
+    SvREADONLY_on(sv);
+  } while(0) /*@SWIG@*/;
+  /*@SWIG:/usr/share/swig/2.0.1/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+    SV *sv = get_sv((char*) SWIG_prefix "ProtoMms", TRUE | 0x2 | GV_ADDMULTI);
+    sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(ProtoMms)));
+    SvREADONLY_on(sv);
+  } while(0) /*@SWIG@*/;
+  /*@SWIG:/usr/share/swig/2.0.1/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+    SV *sv = get_sv((char*) SWIG_prefix "ProtoRtsp", TRUE | 0x2 | GV_ADDMULTI);
+    sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(ProtoRtsp)));
+    SvREADONLY_on(sv);
+  } while(0) /*@SWIG@*/;
+  /*@SWIG:/usr/share/swig/2.0.1/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+    SV *sv = get_sv((char*) SWIG_prefix "ProtoRtmp", TRUE | 0x2 | GV_ADDMULTI);
+    sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(ProtoRtmp)));
+    SvREADONLY_on(sv);
+  } while(0) /*@SWIG@*/;
+  /*@SWIG:/usr/share/swig/2.0.1/perl5/perltypemaps.swg,65,%set_constant@*/ do {
+    SV *sv = get_sv((char*) SWIG_prefix "ProtoAll", TRUE | 0x2 | GV_ADDMULTI);
+    sv_setsv(sv, SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(ProtoAll)));
     SvREADONLY_on(sv);
   } while(0) /*@SWIG@*/;
   SWIG_TypeClientData(SWIGTYPE_p_Options, (void*) "WWW::Quvi::Options");

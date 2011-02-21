@@ -21,11 +21,11 @@
 
 Options::Options ()
   :verbose_libcurl (false), format ("default"), verify (true),
-   shortened(true) { }
+   shortened(true), category(QUVIPROTO_HTTP) { }
 
 Options::Options (const Options& o)
   :verbose_libcurl (false), format ("default"), verify (true),
-   shortened(true)
+   shortened(true), category(QUVIPROTO_HTTP)
 {
   _swap (o);
 }
@@ -48,6 +48,7 @@ Options::_swap (const Options& o)
   format          = o.format;
   verify          = o.verify;
   shortened       = o.shortened;
+  category        = o.category;
 }
 
 

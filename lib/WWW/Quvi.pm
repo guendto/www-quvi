@@ -76,6 +76,8 @@ sub new {
 *swig_verify_set = *WWW::Quvic::Options_verify_set;
 *swig_shortened_get = *WWW::Quvic::Options_shortened_get;
 *swig_shortened_set = *WWW::Quvic::Options_shortened_set;
+*swig_category_get = *WWW::Quvic::Options_category_get;
+*swig_category_set = *WWW::Quvic::Options_category_set;
 sub DESTROY {
     return unless $_[0]->isa('HASH');
     my $self = tied(%{$_[0]});
@@ -261,6 +263,11 @@ sub NoSupport () { $WWW::Quvic::NoSupport }
 sub CurlError () { $WWW::Quvic::CurlError }
 sub IconvError () { $WWW::Quvic::IconvError }
 sub LuaError () { $WWW::Quvic::LuaError }
+sub ProtoHttp () { $WWW::Quvic::ProtoHttp }
+sub ProtoMms () { $WWW::Quvic::ProtoMms }
+sub ProtoRtsp () { $WWW::Quvic::ProtoRtsp }
+sub ProtoRtmp () { $WWW::Quvic::ProtoRtmp }
+sub ProtoAll () { $WWW::Quvic::ProtoAll }
 
 # ------- VARIABLE STUBS --------
 

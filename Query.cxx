@@ -54,7 +54,6 @@ Query::~Query ()
 void
 Query::_init ()
 {
-
   quvi_code = quvi_init (&_quvi);
 
   if (quvi_code != QUVI_OK)
@@ -78,12 +77,13 @@ Query::_close ()
 Video
 Query::parse (const std::string& url, const Options& opts)
 {
-
   if ( !opts.format.empty () )
     quvi_setopt (_quvi, QUVIOPT_FORMAT, opts.format.c_str () );
 
   quvi_setopt (_quvi, QUVIOPT_NOVERIFY,    !opts.verify ? 1L:0L);
   quvi_setopt (_quvi, QUVIOPT_NOSHORTENED, !opts.shortened ? 1L:0L);
+
+  quvi_setopt (_quvi, QUVIOPT_CATEGORY, opts.category);
 
   if ( !opts.user_agent.empty() )
     curl_easy_setopt (_curl, CURLOPT_USERAGENT, opts.user_agent.c_str());
@@ -101,7 +101,6 @@ Query::parse (const std::string& url, const Options& opts)
 
   if (quvi_code != QUVI_OK)
     {
-
       const char *e = quvi_strerror (_quvi, static_cast<QUVIcode>(quvi_code));
 
       last_error = std::string (e);
