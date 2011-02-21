@@ -35,6 +35,6 @@ WriteMakefile(
 # Optional:
 'Test::Pod' => 1.44, # <http://search.cpan.org/perldoc?Test::Pod>
     },
-    LICENSE        => 'gpl',
+    LICENSE        => 'lgpl',
     $libquvi->get_makefile_vars,
 );
