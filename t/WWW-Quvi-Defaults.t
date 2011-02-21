@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 38;
+use Test::More tests => 39;
 BEGIN { use_ok('WWW::Quvi') };
 
 # Version.
@@ -86,9 +86,14 @@ is ($q->{resp_code},  -1);
 # Websites.
 
 my ($rc, $domain, $formats) = $q->next_website;
-is ($rc, 0);
+is ($rc, WWW::Quvi::OK);
 like ($domain, qr{^\w+.\w+$});
 like ($formats, qr{^\w+(?:|)});
+
+# Supported.
+
+$rc = $q->supported ("http://dai.ly");
+is ($rc, WWW::Quvi::OK);
 
 # QUVIcode aliases.
 

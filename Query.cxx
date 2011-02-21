@@ -128,4 +128,12 @@ Query::next_website (std::string& domain, std::string& formats)
   return static_cast<int>(rc);
 }
 
+int
+Query::supported (const std::string& url)
+{
+  const QUVIcode rc =
+    quvi_supported (_quvi, const_cast<char*>(url.c_str()));
+  return static_cast<int>(rc);
+}
+
 // vim: set ts=2 sw=2 tw=72 expandtab:

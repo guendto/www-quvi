@@ -135,6 +135,7 @@ public:
 public:
     Video parse (const std::string&, const Options&);
     int   next_website (std::string &domain, std::string &formats);
+    int   supported (const std::string&);
 public:
 %immutable;
     std::string last_error;

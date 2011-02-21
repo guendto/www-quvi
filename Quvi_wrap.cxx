@@ -3550,6 +3550,64 @@ fail:
   }
 
 
+  XS(_wrap_Query_supported)
+  {
+    {
+      Query *arg1 = (Query *) 0 ;
+      std::string *arg2 = 0 ;
+      void *argp1 = 0 ;
+      int res1 = 0 ;
+      int res2 = SWIG_OLDOBJ ;
+      int argvi = 0;
+      int result;
+      dXSARGS;
+
+      if ((items < 2) || (items > 2))
+        {
+          SWIG_croak("Usage: Query_supported(self,std::string const &);");
+        }
+      res1 = SWIG_ConvertPtr(ST(0), &argp1,SWIGTYPE_p_Query, 0 |  0 );
+      if (!SWIG_IsOK(res1))
+        {
+          SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Query_supported" "', argument " "1"" of type '" "Query *""'");
+        }
+      arg1 = reinterpret_cast< Query * >(argp1);
+      {
+        std::string *ptr = (std::string *)0;
+        res2 = SWIG_AsPtr_std_string SWIG_PERL_CALL_ARGS_2(ST(1), &ptr);
+        if (!SWIG_IsOK(res2))
+          {
+            SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Query_supported" "', argument " "2"" of type '" "std::string const &""'");
+          }
+        if (!ptr)
+          {
+            SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Query_supported" "', argument " "2"" of type '" "std::string const &""'");
+          }
+        arg2 = ptr;
+      }
+      {
+        try
+          {
+            result = (int)(arg1)->supported((std::string const &)*arg2);
+          }
+        catch (const std::runtime_error& e)
+          {
+            SWIG_exception (SWIG_RuntimeError, e.what ());
+          }
+      }
+      ST(argvi) = SWIG_From_int  SWIG_PERL_CALL_ARGS_1(static_cast< int >(result));
+      argvi++ ;
+
+      if (SWIG_IsNewObj(res2)) delete arg2;
+      XSRETURN(argvi);
+fail:
+
+      if (SWIG_IsNewObj(res2)) delete arg2;
+      SWIG_croak_null();
+    }
+  }
+
+
   XS(_wrap_Query_last_error_get)
   {
     {
@@ -3747,6 +3805,7 @@ static swig_command_info swig_commands[] =
   {"WWW::Quvic::delete_Query", _wrap_delete_Query},
   {"WWW::Quvic::Query_parse", _wrap_Query_parse},
   {"WWW::Quvic::Query_next_website", _wrap_Query_next_website},
+  {"WWW::Quvic::Query_supported", _wrap_Query_supported},
   {"WWW::Quvic::Query_last_error_get", _wrap_Query_last_error_get},
   {"WWW::Quvic::Query_quvi_code_get", _wrap_Query_quvi_code_get},
   {"WWW::Quvic::Query_resp_code_get", _wrap_Query_resp_code_get},

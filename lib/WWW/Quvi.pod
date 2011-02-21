@@ -106,7 +106,7 @@ Glues the above together.
         # Do whatever with the parsed video details.
     }
     else {
-        die "libquvi: error: $query->{last_error}";
+        croak "libquvi: error: $query->{last_error}";
         # Other things to check:
         #   * $query->{quvi_code}
         #   * $query->{resp_code}
@@ -122,6 +122,15 @@ Glues the above together.
         print "$domain\t$formats\n";
     }
 
+    # Check if URL is supported. Make a note of "compressed" URLs, as
+    # this function fails with most of them. Refer to the libquvi C API
+    # for the details.
+
+    print
+        $query->supported("http://dai.ly") != WWW::Quvi::OK
+        ? "no support"
+        : "supported";
+
 =head1 NOT IMPLEMENTED
 
 =over 4
@@ -132,39 +141,20 @@ e.g. quvi_callback_status, quvi_callback_write.
 
 =item B<Video segments>
 
-libquvi supports these for historical reasons only. Basically each
+libquvi supports these for historical reasons only. Each
 video would have one or more video segments which had to be
-downloaded as separately.
+downloaded separately from different URLs.
 
 =back
 
 =head1 AUTHOR
 
-Toni Gundogdu <legatvs at sign gmail com>.
+Toni Gundogdu <legatvs at sign gmail com>
 
-=head1 COPYRIGHT
-
-Copyright (C) 2010 Toni Gundogdu.
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see L<http://www.gnu.org/licenses/>.
-
-=head1 SEE ALSO
+=head1 WWW
 
 E<lt>http://www-quvi.googlecode.com/E<gt>
 
-E<lt>http://quvi.googlecode.com/E<gt>
-
-E<lt>git://repo.or.cz/www-quvi.gitE<gt>
+E<lt>http://repo.or.cz/w/www-quvi.gitE<gt>
 
 =cut

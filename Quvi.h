@@ -92,6 +92,7 @@ public:
 public:
   Video parse (const std::string&, const Options&);
   int   next_website (std::string&, std::string&);
+  int   supported (const std::string&);
 private:
   void _init ();
   void _close ();

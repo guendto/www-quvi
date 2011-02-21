@@ -222,6 +222,7 @@ sub DESTROY {
 
 *parse = *WWW::Quvic::Query_parse;
 *next_website = *WWW::Quvic::Query_next_website;
+*supported = *WWW::Quvic::Query_supported;
 *swig_last_error_get = *WWW::Quvic::Query_last_error_get;
 *swig_last_error_set = *WWW::Quvic::Query_last_error_set;
 *swig_quvi_code_get = *WWW::Quvic::Query_quvi_code_get;
