@@ -36,5 +36,15 @@ WriteMakefile(
 'Test::Pod' => 1.44, # <http://search.cpan.org/perldoc?Test::Pod>
     },
     LICENSE        => 'lgpl',
+    dist => {
+        PREOP =>
+'@if test -f .git/HEAD; then \
+	git log --stat --after="Mon Feb 21 20:39:18 2011" >ChangeLog; \
+fi',
+        POSTOP   =>
+'@if test -f .git/HEAD; then \
+	git checkout ChangeLog; \
+fi',
+    },
     $libquvi->get_makefile_vars,
 );
