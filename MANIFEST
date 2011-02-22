@@ -1,8 +1,10 @@
-Changes
+ChangeLog
+ChangeLog.pre-gitlog
 COPYING
 lib/WWW/Quvi.pm
 lib/WWW/Quvi.pod
 Link.cxx
+NEWS
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
