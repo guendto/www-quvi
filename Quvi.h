@@ -80,6 +80,7 @@ public:
   std::string id;
   Link link;
   bool ok;
+  std::string start_time;
 };
 
 class Query

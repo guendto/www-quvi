@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 39;
+use Test::More tests => 40;
 BEGIN { use_ok('WWW::Quvi') };
 
 # Version.
@@ -68,11 +68,12 @@ is ($l->{url},          "");
 my $v = new WWW::Quvi::Video;
 isa_ok ($v, 'WWW::Quvi::Video');
 
-is ($v->{title},     "");
-is ($v->{host},      "");
-is ($v->{url},       "");
-is ($v->{id},        "");
-is ($v->{ok},        "");
+is ($v->{title},      "");
+is ($v->{host},       "");
+is ($v->{url},        "");
+is ($v->{id},         "");
+is ($v->{ok},         "");
+is ($v->{start_time}, "");
 
 # Query.
 

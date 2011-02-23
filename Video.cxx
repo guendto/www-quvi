@@ -31,6 +31,7 @@ Video::Video (quvi_video_t qv) :ok (true)
   _wrap(QUVIPROP_PAGEURL,     url,        char*);
   _wrap(QUVIPROP_PAGETITLE,   title,      char*);
   _wrap(QUVIPROP_VIDEOID,     id,         char*);
+  _wrap(QUVIPROP_STARTTIME,   start_time, char*);
 #undef _wrap
   link = Link (qv);
   quvi_parse_close (&qv);
@@ -59,6 +60,7 @@ Video::_swap (const Video& v)
   id          = v.id;
   link        = v.link;
   ok          = v.ok;
+  start_time  = v.start_time;
 }
 
 // vim: set ts=2 sw=2 tw=72 expandtab:

@@ -116,6 +116,7 @@ public:
     std::string id;
     Link link;
     bool ok;
+    std::string start_time;
 };
 
 /* Query::_init throws std::runtime_error if quvi_init fails. */

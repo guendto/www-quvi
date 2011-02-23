@@ -70,6 +70,7 @@ A container hash that holds the parsed video details.
         $video->{url}
         $video->{id}
         $video->{ok}
+        $video->{start_time}
     ";
 
 =head1 WWW::Quvi::Link
