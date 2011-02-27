@@ -25,7 +25,7 @@ download links.
 This module provides a Perl interface to libquvi. This documentation
 contains the Perl specific details and some sample code. The libquvi
 documentation should be consulted for the API details at
-L<http://quvi.googlecode.com/>.
+L<http://quvi.sourceforge.net/>.
 
 =head1 WWW::Quvi::version
 
