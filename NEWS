@@ -1,0 +1,9 @@
+
+0.04  Fri Mar 04 2011  Toni Gundogdu
+Changes:
+        - Bump libquvi prereq to 0.2.12
+        - Relicense under LGPLv2.1+
+        - Wrap QUVIOPT_NOSHORTENED
+        - Wrap QUVIPROP_STARTTIME
+        - Wrap QUVIOPT_CATEGORY
+        - Wrap quvi_supported
