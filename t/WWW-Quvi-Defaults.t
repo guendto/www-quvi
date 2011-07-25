@@ -53,20 +53,20 @@ is ($opts->{shortened}, "");
 $opts->{category} = WWW::Quvi::ProtoMms;
 is ($opts->{category}, WWW::Quvi::ProtoMms);
 
-# Link.
+# Url.
 
-my $l = new WWW::Quvi::Link;
-isa_ok ($l, 'WWW::Quvi::Link');
+my $l = new WWW::Quvi::Url;
+isa_ok ($l, 'WWW::Quvi::Url');
 
 is ($l->{content_type}, "");
 is ($l->{file_suffix},  "");
 is ($l->{length_bytes}, -1);
 is ($l->{url},          "");
 
-# Video.
+# Media.
 
-my $v = new WWW::Quvi::Video;
-isa_ok ($v, 'WWW::Quvi::Video');
+my $v = new WWW::Quvi::Media;
+isa_ok ($v, 'WWW::Quvi::Media');
 
 is ($v->{title},      "");
 is ($v->{host},       "");
