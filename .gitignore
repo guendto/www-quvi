@@ -4,3 +4,5 @@ patches/
 *.gz
 scripts/
 Makefile.old
+Quvi_wrap.cxx
+lib/

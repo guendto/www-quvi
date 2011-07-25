@@ -11,11 +11,15 @@ my $CXXFLAGS = '-Wall';
 my $CXX      = 'g++';
 my $LD       = 'g++';
 
-my %pkgcfg_libquvi = ExtUtils::PkgConfig->find ('libquvi >= 0.2.12');
+my @OBJS;
+push @OBJS, $_.'$(OBJ_EXT)'
+    foreach qw(Media Options Query Quvi_wrap Url);
 
-my $libquvi = ExtUtils::Depends->new ('libquvi');
-$libquvi->set_inc  ($pkgcfg_libquvi{cflags});
-$libquvi->set_libs ($pkgcfg_libquvi{libs});
+my %pkgcfg_libquvi = ExtUtils::PkgConfig->find('libquvi >= 0.2.17');
+
+my $libquvi = ExtUtils::Depends->new('libquvi');
+$libquvi->set_inc($pkgcfg_libquvi{cflags});
+$libquvi->set_libs($pkgcfg_libquvi{libs});
 
 WriteMakefile(
     NAME            => 'WWW::Quvi',
@@ -23,8 +27,7 @@ WriteMakefile(
     CC              => $CXX,
     CCFLAGS         => $CXXFLAGS,
     LD              => $LD,
-    OBJECT          =>
-        'Quvi_wrap.o Options.o Link.o Video.o Query.o',
+    OBJECT          => (join ' ',@OBJS),
     ( $[ >= 5.8 )
     ? ( AUTHOR     => 'Toni Gundogdu legatvs at sign gmail com',
         'ABSTRACT' => 'Perl bindings for libquvi'

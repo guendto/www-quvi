@@ -1,6 +1,8 @@
 ^.git/
 ^.gitignore
 patches/
-TODO
+todo/
 .gz$
 scripts/
+pod/
+autogen.sh
