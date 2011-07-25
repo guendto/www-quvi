@@ -25,9 +25,9 @@ i="i/Quvi.i"
 
 cleanup()
 {
-  rm -rf $dest
-  rm -f $wrap
-  exit $?
+  [ -e Makefile ] && make distclean
+  rm -rf lib/ ; rm -f $wrap
+  exit 0
 }
 
 help()

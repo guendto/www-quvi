@@ -21,34 +21,40 @@
 
 #include "Quvi.h"
 
-Link::Link () :length_bytes (-1) { }
+Url::Url()
+  : length_bytes(-1)
+{
+}
 
-Link::Link (quvi_video_t qv) :length_bytes (-1)
+Url::Url(quvi_media_t m)
+  : length_bytes(-1)
 {
 #define _wrap(id,dst,type) \
-    do { type t; quvi_getprop(qv,id,&t); dst=t; } while (0)
-  _wrap(QUVIPROP_VIDEOURL,             url,           char*);
-  _wrap(QUVIPROP_VIDEOFILECONTENTTYPE, content_type,  char*);
-  _wrap(QUVIPROP_VIDEOFILESUFFIX,      file_suffix,   char*);
-  _wrap(QUVIPROP_VIDEOFILELENGTH,      length_bytes, double);
+    do { type t; quvi_getprop(m,id,&t); dst=t; } while (0)
+  _wrap(QUVIPROP_MEDIAURL,           url,           char*);
+  _wrap(QUVIPROP_MEDIACONTENTTYPE,   content_type,  char*);
+  _wrap(QUVIPROP_MEDIACONTENTLENGTH, length_bytes, double);
+  _wrap(QUVIPROP_FILESUFFIX,         file_suffix,   char*);
 #undef _wrap
 }
 
-Link::Link (const Link& l) :length_bytes (-1)
+Url::Url(const Url& l)
+  : length_bytes(-1)
 {
-  _swap (l);
+  _swap(l);
 }
 
-Link& Link::operator=(const Link& l)
+Url& Url::operator=(const Url& l)
 {
-  if (this != &l) _swap (l);
+  if (this != &l) _swap(l);
   return *this;
 }
 
-Link::~Link () { }
+Url::~Url()
+{
+}
 
-void
-Link::_swap (const Link& l)
+void Url::_swap(const Url& l)
 {
   content_type = l.content_type;
   file_suffix  = l.file_suffix;

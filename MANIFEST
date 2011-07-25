@@ -3,12 +3,12 @@ ChangeLog.pre-gitlog
 COPYING
 lib/WWW/Quvi.pm
 lib/WWW/Quvi.pod
-Link.cxx
+Url.cxx
 Options.cxx
 Query.cxx
 Quvi.h
 Quvi_wrap.cxx
-Video.cxx
+Media.cxx
 i/Quvi.i
 NEWS
 Makefile.PL

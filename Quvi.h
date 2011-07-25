@@ -24,38 +24,38 @@
 
 class Options;
 class Query;
-class Video;
-class Link;
+class Media;
+class Url;
 
 class Options
 {
 public:
-  Options ();
-  Options (const Options&);
+  Options();
+  Options(const Options&);
   Options& operator=(const Options&);
   virtual ~Options();
 private:
-  void _swap (const Options&);
+  void _swap(const Options&);
 public:
   std::string user_agent;
   std::string http_proxy;
   bool verbose_libcurl;
   std::string format;
   bool verify;
-  bool shortened;
+  bool resolve;
   long category;
 };
 
-class Link
+class Url
 {
 public:
-  Link ();
-  Link (quvi_video_t);
-  Link (const Link&);
-  Link& operator=(const Link&);
-  virtual ~Link();
+  Url();
+  Url(quvi_video_t);
+  Url(const Url&);
+  Url& operator=(const Url&);
+  virtual ~Url();
 private:
-  void _swap (const Link&);
+  void _swap(const Url&);
 public:
   std::string content_type;
   std::string file_suffix;
@@ -63,22 +63,22 @@ public:
   std::string url;
 };
 
-class Video
+class Media
 {
 public:
-  Video ();
-  Video (quvi_video_t);
-  Video (const Video&);
-  Video& operator=(const Video&);
-  virtual ~Video();
+  Media();
+  Media(quvi_video_t);
+  Media(const Media&);
+  Media& operator=(const Media&);
+  virtual ~Media();
 private:
-  void _swap (const Video&);
+  void _swap(const Media&);
 public:
   std::string title;
   std::string host;
-  std::string url;
+  std::string page_url;
   std::string id;
-  Link link;
+  Url url;
   bool ok;
   std::string start_time;
 };
@@ -86,17 +86,17 @@ public:
 class Query
 {
 public:
-  Query ();
-  Query (const Query&);
+  Query();
+  Query(const Query&);
   Query& operator=(const Query&);
   virtual ~Query();
 public:
-  Video parse (const std::string&, const Options&);
-  int   next_website (std::string&, std::string&);
-  int   supported (const std::string&);
+  Media parse(const std::string&, const Options&);
+  int   next_website(std::string&, std::string&);
+  int   supported(const std::string&);
 private:
-  void _init ();
-  void _close ();
+  void _init();
+  void _close();
 private:
   quvi_t _quvi;
   void *_curl;

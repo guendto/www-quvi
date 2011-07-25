@@ -21,13 +21,21 @@
 
 #include "Quvi.h"
 
-Options::Options ()
-  :verbose_libcurl (false), format ("default"), verify (true),
-   shortened(true), category(QUVIPROTO_HTTP) { }
+Options::Options()
+  : verbose_libcurl(false),
+    format("default"),
+    verify(true),
+    resolve(true),
+    category(QUVIPROTO_HTTP)
+{
+}
 
-Options::Options (const Options& o)
-  :verbose_libcurl (false), format ("default"), verify (true),
-   shortened(true), category(QUVIPROTO_HTTP)
+Options::Options(const Options& o)
+  : verbose_libcurl(false),
+    format("default"),
+    verify(true),
+    resolve(true),
+    category(QUVIPROTO_HTTP)
 {
   _swap (o);
 }
@@ -39,17 +47,18 @@ Options::operator=(const Options& o)
   return *this;
 }
 
-Options::~Options () { }
+Options::~Options()
+{
+}
 
-void
-Options::_swap (const Options& o)
+void Options::_swap(const Options& o)
 {
   verbose_libcurl = o.verbose_libcurl;
   user_agent      = o.user_agent;
   http_proxy      = o.http_proxy;
   format          = o.format;
   verify          = o.verify;
-  shortened       = o.shortened;
+  resolve         = o.resolve;
   category        = o.category;
 }
 

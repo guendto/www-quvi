@@ -64,9 +64,8 @@ AbortedByCallback,
 LuaInit,
 NoLuaWebsite,
 NoLuaUtil,
-PcreError= 0x40, /* QUVI_PCRE */
-NoSupport,
-CurlError,       /* QUVI_CURL */
+NoSupport =0x41,
+Callback,
 IconvError,      /* QUVI_ICONV */
 LuaError,        /* QUVI_LUA */
 } quviCode;
@@ -83,20 +82,20 @@ ProtoAll  = (ProtoHttp|ProtoMms|ProtoRtsp|ProtoRtmp)
 
 class Options {
 public:
-    Options ();
+    Options();
 public:
     std::string user_agent;
     std::string http_proxy;
     bool verbose_libcurl;
     std::string format;
     bool verify;
-    bool shortened;
+    bool resolve;
     long category;
 };
 
-class Link {
+class Url {
 public:
-    Link ();
+    Url();
 public:
 %immutable;
     std::string content_type;
@@ -105,16 +104,16 @@ public:
     std::string url;
 };
 
-class Video {
+class Media {
 public:
-    Video ();
+    Media();
 public:
 %immutable;
     std::string title;
     std::string host;
-    std::string url;
+    std::string page_url;
     std::string id;
-    Link link;
+    Url url;
     bool ok;
     std::string start_time;
 };
@@ -124,19 +123,19 @@ public:
     try
         { $action }
     catch (const std::runtime_error& e)
-        { SWIG_exception (SWIG_RuntimeError, e.what ()); }
+        { SWIG_exception(SWIG_RuntimeError, e.what()); }
 }
 
 %apply std::string &OUTPUT { std::string &domain, std::string &formats };
 
 class Query {
 public:
-    Query ();
-    virtual ~Query ();
+    Query();
+    virtual ~Query();
 public:
-    Video parse (const std::string&, const Options&);
-    int   next_website (std::string &domain, std::string &formats);
-    int   supported (const std::string&);
+    Media parse(const std::string&, const Options&);
+    int   next_website(std::string &domain, std::string &formats);
+    int   supported(const std::string&);
 public:
 %immutable;
     std::string last_error;
@@ -145,5 +144,3 @@ public:
 };
 
 %exception;
-
-

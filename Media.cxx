@@ -21,44 +21,49 @@
 
 #include "Quvi.h"
 
-Video::Video () :ok (false) { }
+Media::Media()
+  : ok(false)
+{
+}
 
-Video::Video (quvi_video_t qv) :ok (true)
+Media::Media(quvi_media_t m)
+  : ok(true)
 {
 #define _wrap(id,dst,type) \
-    do { type t; quvi_getprop(qv,id,&t); dst=t; } while (0)
+    do { type t; quvi_getprop(m,id,&t); dst=t; } while (0)
   _wrap(QUVIPROP_HOSTID,      host,       char*);
-  _wrap(QUVIPROP_PAGEURL,     url,        char*);
+  _wrap(QUVIPROP_PAGEURL,     page_url,   char*);
   _wrap(QUVIPROP_PAGETITLE,   title,      char*);
-  _wrap(QUVIPROP_VIDEOID,     id,         char*);
+  _wrap(QUVIPROP_MEDIAID,     id,         char*);
   _wrap(QUVIPROP_STARTTIME,   start_time, char*);
 #undef _wrap
-  link = Link (qv);
-  quvi_parse_close (&qv);
+  url = Url(m);
+  quvi_parse_close(&m);
 }
 
-Video::Video (const Video& v) :ok (false)
+Media::Media(const Media& v)
+  :ok(false)
 {
-  _swap (v);
+  _swap(v);
 }
 
-Video&
-Video::operator=(const Video& v)
+Media& Media::operator=(const Media& v)
 {
-  if (this != &v) _swap (v);
+  if (this != &v) _swap(v);
   return *this;
 }
 
-Video::~Video () { }
+Media::~Media()
+{
+}
 
-void
-Video::_swap (const Video& v)
+void Media::_swap(const Media& v)
 {
   title       = v.title;
   host        = v.host;
-  url         = v.url;
+  page_url    = v.page_url;
   id          = v.id;
-  link        = v.link;
+  url         = v.url;
   ok          = v.ok;
   start_time  = v.start_time;
 }

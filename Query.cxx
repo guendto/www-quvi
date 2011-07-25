@@ -25,20 +25,25 @@
 
 #include "Quvi.h"
 
-Query::Query ()
-  :_quvi(NULL), _curl(NULL), quvi_code (QUVI_OK), resp_code (-1)
+Query::Query()
+  : _quvi(NULL),
+    _curl(NULL),
+    quvi_code(QUVI_OK),
+    resp_code(-1)
 {
-  _init ();
+  _init();
 }
 
-Query::Query (const Query& q)
-  :_quvi(NULL), _curl(NULL), quvi_code (QUVI_OK), resp_code (-1)
+Query::Query(const Query& q)
+  : _quvi(NULL),
+    _curl(NULL),
+    quvi_code(QUVI_OK),
+    resp_code(-1)
 {
-  _init ();
+  _init();
 }
 
-Query&
-Query::operator=(const Query& q)
+Query& Query::operator=(const Query& q)
 {
   if (this != &q)
     {
@@ -48,97 +53,90 @@ Query::operator=(const Query& q)
   return *this;
 }
 
-Query::~Query ()
+Query::~Query()
 {
-  _close ();
+  _close();
 }
 
-void
-Query::_init ()
+void Query::_init()
 {
-  quvi_code = quvi_init (&_quvi);
+  quvi_code = quvi_init(&_quvi);
 
   if (quvi_code != QUVI_OK)
     {
-      const char *e = quvi_strerror (_quvi, static_cast<QUVIcode>(quvi_code));
-      throw std::runtime_error (e);
+      const char *e = quvi_strerror(_quvi, static_cast<QUVIcode>(quvi_code));
+      throw std::runtime_error(e);
     }
 
-  quvi_getinfo (_quvi, QUVIINFO_CURL, &_curl);
-  assert (_curl != NULL);
+  quvi_getinfo(_quvi, QUVIINFO_CURL, &_curl);
+  assert(_curl != NULL);
 }
 
-void
-Query::_close ()
+void Query::_close()
 {
-  if (_quvi) quvi_close (&_quvi);
-  assert (_quvi == NULL);
+  if (_quvi)
+    quvi_close(&_quvi);
+  assert(_quvi == NULL);
   _curl = NULL;
 }
 
-Video
-Query::parse (const std::string& url, const Options& opts)
+Media Query::parse(const std::string& url, const Options& opts)
 {
-  if ( !opts.format.empty () )
-    quvi_setopt (_quvi, QUVIOPT_FORMAT, opts.format.c_str () );
+  if ( !opts.format.empty() )
+    quvi_setopt(_quvi, QUVIOPT_FORMAT, opts.format.c_str() );
 
-  quvi_setopt (_quvi, QUVIOPT_NOVERIFY,    !opts.verify ? 1L:0L);
-  quvi_setopt (_quvi, QUVIOPT_NOSHORTENED, !opts.shortened ? 1L:0L);
+  quvi_setopt(_quvi, QUVIOPT_NOVERIFY,  !opts.verify ? 1L:0L);
+  quvi_setopt(_quvi, QUVIOPT_NORESOLVE, !opts.resolve ? 1L:0L);
 
-  quvi_setopt (_quvi, QUVIOPT_CATEGORY, opts.category);
+  quvi_setopt(_quvi, QUVIOPT_CATEGORY, opts.category);
 
   if ( !opts.user_agent.empty() )
-    curl_easy_setopt (_curl, CURLOPT_USERAGENT, opts.user_agent.c_str());
+    curl_easy_setopt(_curl, CURLOPT_USERAGENT, opts.user_agent.c_str());
 
   if ( !opts.http_proxy.empty() )
-    curl_easy_setopt (_curl, CURLOPT_PROXY, opts.http_proxy.c_str () );
+    curl_easy_setopt(_curl, CURLOPT_PROXY, opts.http_proxy.c_str() );
 
-  curl_easy_setopt (_curl, CURLOPT_VERBOSE, opts.verbose_libcurl ? 1L:0L);
+  curl_easy_setopt(_curl, CURLOPT_VERBOSE, opts.verbose_libcurl ? 1L:0L);
 
-  quvi_video_t qv;
+  quvi_media_t m;
+  quvi_code = quvi_parse(_quvi, const_cast<char*>(url.c_str()), &m);
 
-  quvi_code = quvi_parse (_quvi, const_cast<char*>(url.c_str ()), &qv);
-
-  quvi_getinfo (_quvi, QUVIINFO_HTTPCODE, &resp_code);
+  quvi_getinfo(_quvi, QUVIINFO_HTTPCODE, &resp_code);
 
   if (quvi_code != QUVI_OK)
     {
-      const char *e = quvi_strerror (_quvi, static_cast<QUVIcode>(quvi_code));
-
-      last_error = std::string (e);
-
-      return Video();
+      const char *e = quvi_strerror(_quvi, static_cast<QUVIcode>(quvi_code));
+      last_error = std::string(e);
+      return Media();
     }
 
-  return Video (qv);
+  return Media(m);
 }
 
-int
-Query::next_website (std::string& domain, std::string& formats)
+int Query::next_website(std::string& domain, std::string& formats)
 {
-  char *dom=NULL, *fmt=NULL;
-  const QUVIcode rc = quvi_next_supported_website (_quvi, &dom, &fmt);
+  char *d=NULL, *f=NULL;
+  const QUVIcode rc = quvi_next_supported_website(_quvi, &d, &f);
   if (rc == QUVI_OK)
     {
-      domain  = dom;
-      formats = fmt;
-      quvi_free (dom);
-      quvi_free (fmt);
+      domain  = d;
+      formats = f;
+      quvi_free(d);
+      quvi_free(f);
     }
   return static_cast<int>(rc);
 }
 
-int
-Query::supported (const std::string& url)
+int Query::supported(const std::string& url)
 {
-  quvi_code = quvi_supported (_quvi, const_cast<char*>(url.c_str()));
+  quvi_code = quvi_supported(_quvi, const_cast<char*>(url.c_str()));
 
   if (quvi_code != QUVI_OK)
     {
       const char *e =
-        quvi_strerror (_quvi, static_cast<QUVIcode>(quvi_code));
+        quvi_strerror(_quvi, static_cast<QUVIcode>(quvi_code));
 
-      last_error = std::string (e);
+      last_error = std::string(e);
     }
 
   return static_cast<int>(quvi_code);
