@@ -108,9 +108,8 @@ my @QUVIcode = {
    WWW::Quvi::AbortedByCallback,
    WWW::Quvi::LuaInit,
    WWW::Quvi::NoLuaWebsite,
-   WWW::Quvi::PcreError,
    WWW::Quvi::NoSupport,
-   WWW::Quvi::CurlError,
+   WWW::Quvi::CallbackError,
    WWW::Quvi::IconvError,
    WWW::Quvi::LuaError,
 };

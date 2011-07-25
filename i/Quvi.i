@@ -65,7 +65,7 @@ LuaInit,
 NoLuaWebsite,
 NoLuaUtil,
 NoSupport =0x41,
-Callback,
+CallbackError,
 IconvError,      /* QUVI_ICONV */
 LuaError,        /* QUVI_LUA */
 } quviCode;
