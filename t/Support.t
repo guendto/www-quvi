@@ -21,22 +21,24 @@
 use warnings;
 use strict;
 
-use Test::More tests => 6;
+use Test::More tests => 3;
 use WWW::Quvi;
 
 my $q = new WWW::Quvi::Query;
-isa_ok($q, 'WWW::Quvi::Query');
 
 # Next (supported) website.
 
-my ($rc, $domain, $formats) = $q->next_website;
-is($rc, WWW::Quvi::OK);
-like($domain, qr{^\w+.\w+$});
-like($formats, qr{^\w+(?:|)});
+my $n=0;
+while (1) {
+  my ($done) = $q->next_website;
+  last if $done;
+  ++$n;
+}
+isnt($n, 0);
 
 # Supported.
 
-$rc = $q->supported('http://dai.ly/foobar');
+my $rc = $q->supported('http://dai.ly/foobar');
 is($rc, WWW::Quvi::OK);
 
 $rc = $q->supported('http://foo.bar');
