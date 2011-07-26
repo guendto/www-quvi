@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker;
 use ExtUtils::PkgConfig;
 use ExtUtils::Depends;
 
-my $CXXFLAGS = '-Wall';
+my $CXXFLAGS = '-Wall -Ii';
 my $CXX      = 'g++';
 my $LD       = 'g++';
 
