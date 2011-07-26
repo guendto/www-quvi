@@ -21,24 +21,27 @@
 
 #include "Quvi.h"
 
+#define _init \
+: user_agent(""), \
+  http_proxy(""), \
+  verbose_libcurl(0), \
+  format("default"), \
+  category(QUVIPROTO_HTTP), \
+  resolve(1), \
+  verify(1)
+
 Options::Options()
-  : verbose_libcurl(false),
-    format("default"),
-    verify(true),
-    resolve(true),
-    category(QUVIPROTO_HTTP)
+_init
 {
 }
 
 Options::Options(const Options& o)
-  : verbose_libcurl(false),
-    format("default"),
-    verify(true),
-    resolve(true),
-    category(QUVIPROTO_HTTP)
+_init
 {
   _swap (o);
 }
+
+#undef _init
 
 Options&
 Options::operator=(const Options& o)

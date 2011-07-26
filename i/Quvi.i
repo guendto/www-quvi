@@ -32,14 +32,14 @@
 char *_VERSION = VERSION;
 
 typedef enum {
-    libquviVersion      = QUVI_VERSION,
-    libquviVersionLong  = QUVI_VERSION_LONG,
-    ModuleVersion
+  libquviVersion      = QUVI_VERSION,
+  libquviVersionLong  = QUVI_VERSION_LONG,
+  ModuleVersion
 } quviVersion;
 
 static char* version (quviVersion n=ModuleVersion) {
-    if (n == ModuleVersion) return _VERSION;
-    return quvi_version ((QUVIversion)n);
+  if (n == ModuleVersion) return _VERSION;
+  return quvi_version ((QUVIversion)n);
 }
 
 /*
@@ -54,20 +54,20 @@ static char* version (quviVersion n=ModuleVersion) {
  * defined in <quvi/quvi.h> which is included by the wrapper.
  */
 typedef enum {
-OK  = 0x00,
-Mem,
-BadHandle,
-InvArg,
-CurlInit,
-Last,
-AbortedByCallback,
-LuaInit,
-NoLuaWebsite,
-NoLuaUtil,
-NoSupport =0x41,
-CallbackError,
-IconvError,      /* QUVI_ICONV */
-LuaError,        /* QUVI_LUA */
+  OK = 0x00,
+  Mem,
+  BadHandle,
+  InvArg,
+  CurlInit,
+  Last,
+  AbortedByCallback,
+  LuaInit,
+  NoLuaWebsite,
+  NoLuaUtil,
+  NoSupport =0x41,
+  CallbackError,
+  IconvError,      /* QUVI_ICONV */
+  LuaError,        /* QUVI_LUA */
 } quviCode;
 
 typedef enum {
@@ -82,65 +82,65 @@ ProtoAll  = (ProtoHttp|ProtoMms|ProtoRtsp|ProtoRtmp)
 
 class Options {
 public:
-    Options();
+  Options();
 public:
-    std::string user_agent;
-    std::string http_proxy;
-    bool verbose_libcurl;
-    std::string format;
-    bool verify;
-    bool resolve;
-    long category;
+  std::string user_agent;
+  std::string http_proxy;
+  int verbose_libcurl;
+  std::string format;
+  long category;
+  int resolve;
+  int verify;
 };
 
 class Url {
 public:
-    Url();
+  Url();
 public:
 %immutable;
-    std::string content_type;
-    std::string file_suffix;
-    double length_bytes;
-    std::string url;
+  std::string content_type;
+  std::string file_suffix;
+  double length_bytes;
+  std::string url;
 };
 
 class Media {
 public:
-    Media();
+  Media();
 public:
 %immutable;
-    std::string title;
-    std::string host;
-    std::string page_url;
-    std::string id;
-    Url url;
-    bool ok;
-    std::string start_time;
+  std::string start_time;
+  std::string page_url;
+  std::string title;
+  std::string host;
+  std::string id;
+  Url url;
+  int ok;
 };
 
 /* Query::_init throws std::runtime_error if quvi_init fails. */
 %exception {
-    try
-        { $action }
-    catch (const std::runtime_error& e)
-        { SWIG_exception(SWIG_RuntimeError, e.what()); }
+  try
+    { $action }
+  catch (const std::runtime_error& e)
+    { SWIG_exception(SWIG_RuntimeError, e.what()); }
 }
 
 %apply std::string &OUTPUT { std::string &domain, std::string &formats };
 
 class Query {
 public:
-    Query();
-    virtual ~Query();
+  Query();
+  virtual ~Query();
 public:
-    Media parse(const std::string&, const Options&);
-    int   next_website(std::string &domain, std::string &formats);
-    int   supported(const std::string&);
+  Media parse(const std::string&, const Options&);
+  int next_website(std::string &domain, std::string &formats);
+  int supported(const std::string&);
 public:
 %immutable;
-    std::string last_error;
-    long quvi_code;
-    long resp_code;
+  std::string last_error;
+  long quvi_code;
+  long resp_code;
 };
 
 %exception;

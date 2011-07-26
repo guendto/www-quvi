@@ -39,11 +39,11 @@ private:
 public:
   std::string user_agent;
   std::string http_proxy;
-  bool verbose_libcurl;
+  int verbose_libcurl;
   std::string format;
-  bool verify;
-  bool resolve;
   long category;
+  int resolve;
+  int verify;
 };
 
 class Url
@@ -74,13 +74,13 @@ public:
 private:
   void _swap(const Media&);
 public:
+  std::string start_time;
+  std::string page_url;
   std::string title;
   std::string host;
-  std::string page_url;
   std::string id;
   Url url;
-  bool ok;
-  std::string start_time;
+  int ok;
 };
 
 class Query
@@ -92,8 +92,8 @@ public:
   virtual ~Query();
 public:
   Media parse(const std::string&, const Options&);
-  int   next_website(std::string&, std::string&);
-  int   supported(const std::string&);
+  int next_website(std::string&, std::string&);
+  int supported(const std::string&);
 private:
   void _init();
   void _close();

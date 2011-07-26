@@ -22,12 +22,12 @@
 #include "Quvi.h"
 
 Media::Media()
-  : ok(false)
+  : ok(0)
 {
 }
 
 Media::Media(quvi_media_t m)
-  : ok(true)
+  : ok(1)
 {
 #define _wrap(id,dst,type) \
     do { type t; quvi_getprop(m,id,&t); dst=t; } while (0)
@@ -42,7 +42,7 @@ Media::Media(quvi_media_t m)
 }
 
 Media::Media(const Media& v)
-  :ok(false)
+  : ok(0)
 {
   _swap(v);
 }
