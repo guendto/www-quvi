@@ -4,21 +4,21 @@ WWW::Quvi - Perl extension interface for libquvi
 
 =head1 SYNOPSIS
 
-    use WWW::Quvi;
-    my $opts  = new WWW::Quvi::Options;
-    my $query = new WWW::Quvi::Query;
-    my $video = $query->parse ($url, $opts);
-    if ($video->{ok}) {
-        # ...
-    }
-    else {
-        die "libquvi: error: $query->{last_error}";
-    }
+  use WWW::Quvi;
+  my $opts  = new WWW::Quvi::Options;
+  my $query = new WWW::Quvi::Query;
+  my $media = $query->parse ($url, $opts);
+  if ($media->{ok}) {
+    # ...
+  }
+  else {
+    die "libquvi: error: $query->{last_error}";
+  }
 
 =head1 DESCRIPTION
 
-WWW::Quvi provides a Perl interface to libquvi, a library for parsing video
-download links.
+WWW::Quvi provides a Perl interface to libquvi, a small C library for
+parsing Flash media stream URLs.
 
 =head1 DOCUMENTATION
 
@@ -32,130 +32,117 @@ L<http://quvi.sourceforge.net/>.
 A wrapper function that returns WWW::Quvi version and libquvi version
 information.
 
-    use warnings;
-    use strict;
-
-    print WWW::Quvi::version; # Module version
-    print WWW::Quvi::version (WWW::Quvi::ModuleVersion); # Same as above.
-    print WWW::Quvi::version (WWW::Quvi::libquviVersion);
-    print WWW::Quvi::version (WWW::Quvi::libquviVersionLong);
+  WWW::Quvi::version;                           # Module version
+  WWW::Quvi::version(WWW::Quvi::ModuleVersion); # Ditto.
+  WWW::Quvi::version(WWW::Quvi::libquviVersion);
+  WWW::Quvi::version(WWW::Quvi::libquviVersionLong);
 
 =head1 WWW::Quvi::Options
 
 A container hash for the options used with libquvi that would normally
 (using the C API) be set with C<quvi_setopt(3)>.
 
- use warnings;
- use strict;
+  $opts->{verbose_libcurl} = 1;                      # Default: 0
+  $opts->{user_agent}      = 'Foo/1.0';              # Default: ""
+  $opts->{http_proxy}      = 'http://foo:1234';      # Default: ""
+  $opts->{category}        = WWW::Quvi::ProtoHttp;   # Default: ProtoAll
+  $opts->{format}          = 'best';                 # Default: "default"
+  $opts->{resolve}         = 0;                      # Default: 1
+  $opts->{verify}          = 0;                      # Default: 1
 
- use WWW::Quvi;
+=head1 WWW::Quvi::Media
 
- my $opts = new WWW::Quvi::Options;
+A container hash that holds the parsed media details accessible using
+C<quvi_getprop(3)>.
 
- $opts->{user_agent}      = 'Foo/1.0';              # Default: ""
- $opts->{http_proxy}      = 'http://foo:1234';      # Default: ""
- $opts->{format}          = 'hd';                   # Default: "default"
- $opts->{verify}          = 0;                      # Default: 1
- $opts->{verbose_libcurl} = 1;                      # Default: 0
- $opts->{shortened}       = 0;                      # Default: 1
- $opts->{category}        = WWW::Quvi::ProtoAll;    # Default: ProtoHttp
+  $media->{start_time} - Start time for media (if any)
+  $media->{page_url}   - Page URL
+  $media->{title}      - Media title
+  $media->{host}       - Host ID
+  $media->{id}         - Media ID
+  $media->{ok}         - Non-zero value if parsing succeeded
 
-=head1 WWW::Quvi::Video
+=head1 WWW::Quvi::Url
 
-A container hash that holds the parsed video details.
+A container hash that holds the parsed media url details. A member of
+the L</WWW::Quvi::Media> hash.
 
-    print "
-        $video->{title}
-        $video->{host}
-        $video->{url}
-        $video->{id}
-        $video->{ok}
-        $video->{start_time}
-    ";
-
-=head1 WWW::Quvi::Link
-
-A container hash that holds the parsed video link details. A member of
-the L</WWW::Quvi::Video> hash.
-
-    print "
-        $video->{link}->{content_type}
-        $video->{link}->{file_suffix}
-        $video->{link}->{length_bytes}
-        $video->{link}->{url}
-    ";
+  $url->{content_type} - Content-type as returned by the server
+  $url->{file_suffix}  - File suffix parsed from the content-type
+  $url->{length_bytes} - Content length as returned by the server
+  $url->{url}          - Media stream URL
 
 =head1 WWW::Quvi::Query
 
 Glues the above together.
 
-    # An Options instance is required.
-    # See WWW::Quvi::Options above for the available keys.
+  # An Options instance is required.
+  # See WWW::Quvi::Options above for the available keys.
+  my $opts  = new WWW::Quvi::Options;
 
-    my $opts  = new WWW::Quvi::Options;
+  # Initializes libquvi (quvi_init), croaks if that fails.
+  my $query = new WWW::Quvi::Query;
 
-    # Initializes libquvi (quvi_init), croaks if that fails.
+  # Perform a query.
+  my $url   = "http://www.youtube.com/watch?v=DUM1284TqFc";
+  my $media = $query->parse ($url, $opts);
 
-    my $query = new WWW::Quvi::Query;
+  if ($media->{ok}) {
+    # Do whatever with the parsed media details.
+  }
+  else {
+    croak "libquvi: error: $query->{last_error}";
+    # Other things to check:
+    #  $query->{quvi_code}
+    #  $query->{resp_code}
+  }
 
-    # Perform a query.
+  # Iterate supported websites:
 
-    my $url   = "http://www.youtube.com/watch?v=DUM1284TqFc";
-    my $video = $query->parse ($url, $opts);
+  while (1) {
+    my ($done, $domain, $formats) = $query->next_website;
+    last if $done;
+    print "$domain\t$formats\n";
+  }
 
-    if ($video->{ok}) {
-        # Do whatever with the parsed video details.
-    }
-    else {
-        croak "libquvi: error: $query->{last_error}";
-        # Other things to check:
-        #   * $query->{quvi_code}
-        #   * $query->{resp_code}
-    }
+  # Check if URL is supported. Make a note of "compressed" URLs, as
+  # this function fails with most of them. Refer to the libquvi C API
+  # for the details.
 
-    # Iterate supported websites:
-
-    while (1) {
-        my ($done, $domain, $formats) = $query->next_website;
-
-        last if $done;
-
-        print "$domain\t$formats\n";
-    }
-
-    # Check if URL is supported. Make a note of "compressed" URLs, as
-    # this function fails with most of them. Refer to the libquvi C API
-    # for the details.
-
-    print
-        $query->supported("http://dai.ly") != WWW::Quvi::OK
-        ? $query->{last_error}
-        : "supported";
+  print
+    $query->supported("http://dai.ly") != WWW::Quvi::OK
+    ? $query->{last_error}
+    : "supported";
 
 =head1 NOT IMPLEMENTED
 
 =over 4
 
+=item B<Linked list interface>
+
+=item B<Network interface>
+
+=item B<Media segments>
+
 =item B<Callbacks>
 
-e.g. quvi_callback_status, quvi_callback_write.
-
-=item B<Video segments>
-
-libquvi supports these for historical reasons only. Each
-video would have one or more video segments which had to be
-downloaded separately from different URLs.
-
 =back
+
+=head1 WWW
+
+ Home  : http://www-quvi.sourceforge.net/
+ gitweb: http://repo.or.cz/w/www-quvi.git
+
+=head1 LICENSE
+
+WWW::Quvi is free software, licensed under the LGPLv2.1+.
+
+=head1 SEE ALSO
+
+C<quvi(1)>
 
 =head1 AUTHOR
 
 Toni Gundogdu <legatvs at sign gmail com>
-
-=head1 WWW
-
-E<lt>http://www-quvi.googlecode.com/E<gt>
-
-E<lt>http://repo.or.cz/w/www-quvi.gitE<gt>
 
 =cut
