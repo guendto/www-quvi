@@ -43,6 +43,7 @@ my ($rc, $formats) = $q->formats(URL);
 croak "error: $q->{last_error}\n"
   unless $rc == WWW::Quvi::OK;
 
+#print "$_\n" foreach split /\|/, $formats;
 printf "%20s : %s\n", $formats, URL;
 
 # vim: set ts=2 sw=2 tw=72 expandtab:
