@@ -25,12 +25,25 @@ use Test::More;
 use WWW::Quvi;
 
 $ENV{HAVE_INTERNET}
-  ? plan tests => 1
+  ? plan tests => 2
   : plan skip_all => 'Set HAVE_INTERNET to enable';
 
-my $u = "http://www.dailymotion.com/video/xdpig1_city-of-scars_shortfilms";
+use constant URL =>
+  "http://www.dailymotion.com/video/xdpig1_city-of-scars_shortfilms";
+
+my $o = new WWW::Quvi::Options;
 my $q = new WWW::Quvi::Query;
-my $m = $q->parse($u, new WWW::Quvi::Options);
+$q->set_opts($o);
+
+# Formats.
+
+my ($rc, $fmts) = $q->formats(URL);
+is($rc, WWW::Quvi::OK) or diag $q->{last_error};
+#diag $fmts;
+
+# Media.
+
+my $m = $q->parse(URL);
 is($m->{ok}, 1) or diag $q->{last_error};
 
 # vim: set ts=2 sw=2 tw=72 expandtab:
