@@ -132,7 +132,7 @@ int Query::next_website(std::string& domain, std::string& formats)
 void Query::_format_error()
 {
   const char *e = quvi_strerror(_quvi, static_cast<QUVIcode>(quvi_code));
-  last_error = std::string(e);
+  errmsg = std::string(e);
 }
 
 int Query::supported(const std::string& url)

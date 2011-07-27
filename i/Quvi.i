@@ -135,7 +135,7 @@ public:
   void set_opts(const Options&);
 public:
 %immutable;
-  std::string last_error;
+  std::string errmsg;
   long quvi_code;
   long resp_code;
 };

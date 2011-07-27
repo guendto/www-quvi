@@ -91,7 +91,7 @@ private:
   quvi_t _quvi;
   void *_curl;
 public:
-  std::string last_error;
+  std::string errmsg;
   long quvi_code;
   long resp_code;
 };
