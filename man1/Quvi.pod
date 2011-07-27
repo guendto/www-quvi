@@ -5,11 +5,9 @@ WWW::Quvi - Perl extension interface for libquvi
 =head1 SYNOPSIS
 
   use WWW::Quvi;
-
   my $q = new WWW::Quvi::Query;
   my $m = $query->parse($url);
-
-  croak "error: $q->{errmsg}\n" unless $m->{ok};
+  croak "error: $q->{errmsg}" unless $q->{ok};
 
 =head1 DESCRIPTION
 
@@ -62,51 +60,67 @@ C<quvi_getprop(3)>.
   $media->{host}            - Host string
   $media->{url}             - Media stream URL
   $media->{id}              - Media ID
-  $media->{ok}              - Non-zero value if parsing succeeded
 
 =head1 WWW::Quvi::Query
 
 =over 4
 
-=item parse($url)
+=item parse($url)  [function]
 
 Parse media details for URL. Returns WWW::Quvi::Media object.
 
   my $m = $q->parse($url);
 
-=item ($rc, $domain, $formats) next_website()
+=item ($domain, $formats) next_website()  [function]
 
-Return next supported website. The returned tuple will hold return code
-($rc), domain string and the formats string.
+Return next supported website (domain, formats). These values are
+returned by the libquvi webscripts.
 
-Please note that the formats string has very little use as of
-libquvi 0.2.17. This function is best suited for getting a list of the
-supported websites.
+Note that C<formats> no practical use since libquvi 0.2.17. This
+function is most useful for listing the available support.
 
 Use the C<formats> function (below) instead if you need to know which
 formats are available to an URL.
 
-  while (1) {
-    my ($done, $domain) = $q->next_website;
-    last if $done;
-    print "$domain\n";
+  while ($q->{ok})
+    my ($d,$f) = $q->next_website;
+    print "$d\t$f\n" if $q->{ok};
   }
 
-=item ($rc, $formats) formats($url)
+=item formats($url)  [function]
 
-Return a list of formats available to an URL.
+Returns a string containing a list of available formats to an URL. Each
+format ID is separated by a pipe character.
 
-  my ($rc, $formats) = q->formats($url);
-  croak "error: $q->{errmsg}\n" unless $rc == WWW::Quvi::OK;
-  print "$_\n" foreach (split /\|/, $formats);
+  my $fmts = $q->formats($url);
+  croak "error: $q->{errmsg}" unless $q->{ok};
+  print "$_\n" foreach (split /\|/, $fmts);
 
-=item set_opts($opts)
+=item set_opts($opts)  [function]
 
 Set Query options (see also L</WWW::Quvi::Options>).
 
-=item supported($url)
+=item supported($url)  [function]
 
 Returns a non-zero value if the URL is not supported.
+
+=item ok  [variable]
+
+Non-zero if an error occurred.
+
+=item errmsg  [variable]
+
+Last error message. Check L</ok> flag for errors.
+
+  croak $q->{errmsg} unless $q->{ok};
+
+=item quvi_code  [variable]
+
+Last libquvi returned code.
+
+=item resp_code  [variable]
+
+Last response (assumed HTTP) code returned by the server.
 
 =back
 
