@@ -25,6 +25,7 @@ use Test::More tests => 3;
 use WWW::Quvi;
 
 my $q = new WWW::Quvi::Query;
+$q->set_opts(new WWW::Quvi::Options);
 
 # Next (supported) website.
 
@@ -35,6 +36,7 @@ while (1) {
   ++$n;
 }
 isnt($n, 0);
+#diag $n;
 
 # Supported.
 
