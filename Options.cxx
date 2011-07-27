@@ -38,15 +38,14 @@ _init
 Options::Options(const Options& o)
 _init
 {
-  _swap (o);
+  _swap(o);
 }
 
 #undef _init
 
-Options&
-Options::operator=(const Options& o)
+Options& Options::operator=(const Options& o)
 {
-  if (this != &o) _swap (o);
+  if (this != &o) _swap(o);
   return *this;
 }
 
