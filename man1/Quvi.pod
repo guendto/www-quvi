@@ -5,15 +5,11 @@ WWW::Quvi - Perl extension interface for libquvi
 =head1 SYNOPSIS
 
   use WWW::Quvi;
-  my $opts  = new WWW::Quvi::Options;
-  my $query = new WWW::Quvi::Query;
-  my $media = $query->parse ($url, $opts);
-  if ($media->{ok}) {
-    # ...
-  }
-  else {
-    die "libquvi: error: $query->{last_error}";
-  }
+
+  my $q = new WWW::Quvi::Query;
+  my $m = $query->parse($url);
+
+  croak "error: $q->{errmsg}\n" unless $m->{ok};
 
 =head1 DESCRIPTION
 
@@ -42,77 +38,77 @@ information.
 A container hash for the options used with libquvi that would normally
 (using the C API) be set with C<quvi_setopt(3)>.
 
-  $opts->{verbose_libcurl} = 1;                      # Default: 0
-  $opts->{user_agent}      = 'Foo/1.0';              # Default: ""
-  $opts->{http_proxy}      = 'http://foo:1234';      # Default: ""
-  $opts->{category}        = WWW::Quvi::ProtoHttp;   # Default: ProtoAll
-  $opts->{format}          = 'best';                 # Default: "default"
-  $opts->{resolve}         = 0;                      # Default: 1
-  $opts->{verify}          = 0;                      # Default: 1
+  $opts->{verbose_libcurl} = 1;                    # Default: 0
+  $opts->{user_agent}      = 'Foo/1.0';            # Default: ""
+  $opts->{http_proxy}      = 'http://foo:1234';    # Default: ""
+  $opts->{category}        = WWW::Quvi::ProtoHttp; # Default: ProtoAll
+  $opts->{resolve}         = 0;                    # Default: 1
+  $opts->{format}          = 'best';               # Default: "default"
+  $opts->{verify}          = 0;                    # Default: 1
 
 =head1 WWW::Quvi::Media
 
 A container hash that holds the parsed media details accessible using
 C<quvi_getprop(3)>.
 
-  $media->{start_time} - Start time for media (if any)
-  $media->{page_url}   - Page URL
-  $media->{title}      - Media title
-  $media->{host}       - Host ID
-  $media->{id}         - Media ID
-  $media->{ok}         - Non-zero value if parsing succeeded
-
-=head1 WWW::Quvi::Url
-
-A container hash that holds the parsed media url details. A member of
-the L</WWW::Quvi::Media> hash.
-
-  $url->{content_type} - Content-type as returned by the server
-  $url->{file_suffix}  - File suffix parsed from the content-type
-  $url->{length_bytes} - Content length as returned by the server
-  $url->{url}          - Media stream URL
+  $media->{content_length}  - Content length as returned by the server
+  $media->{thumbnail_url}   - Thumbnail URL (if any)
+  $media->{content_type}    - Content-type as returned by the server
+  $media->{file_suffix}     - File suffix parsed from the content-type
+  $media->{start_time}      - Start time for media (if any)
+  $media->{page_title}      - Media title
+  $media->{page_url}        - Page URL
+  $media->{duration}        - Duration in msec (if any)
+  $media->{host}            - Host string
+  $media->{url}             - Media stream URL
+  $media->{id}              - Media ID
+  $media->{ok}              - Non-zero value if parsing succeeded
 
 =head1 WWW::Quvi::Query
 
-Glues the above together.
+=over 4
 
-  # An Options instance is required.
-  # See WWW::Quvi::Options above for the available keys.
-  my $opts  = new WWW::Quvi::Options;
+=item parse($url)
 
-  # Initializes libquvi (quvi_init), croaks if that fails.
-  my $query = new WWW::Quvi::Query;
+Parse media details for URL. Returns WWW::Quvi::Media object.
 
-  # Perform a query.
-  my $url   = "http://www.youtube.com/watch?v=DUM1284TqFc";
-  my $media = $query->parse ($url, $opts);
+  my $m = $q->parse($url);
 
-  if ($media->{ok}) {
-    # Do whatever with the parsed media details.
-  }
-  else {
-    croak "libquvi: error: $query->{last_error}";
-    # Other things to check:
-    #  $query->{quvi_code}
-    #  $query->{resp_code}
-  }
+=item ($rc, $domain, $formats) next_website()
 
-  # Iterate supported websites:
+Return next supported website. The returned tuple will hold return code
+($rc), domain string and the formats string.
+
+Please note that the formats string has very little use as of
+libquvi 0.2.17. This function is best suited for getting a list of the
+supported websites.
+
+Use the C<formats> function (below) instead if you need to know which
+formats are available to an URL.
 
   while (1) {
-    my ($done, $domain, $formats) = $query->next_website;
+    my ($done, $domain) = $q->next_website;
     last if $done;
-    print "$domain\t$formats\n";
+    print "$domain\n";
   }
 
-  # Check if URL is supported. Make a note of "compressed" URLs, as
-  # this function fails with most of them. Refer to the libquvi C API
-  # for the details.
+=item ($rc, $formats) formats($url)
 
-  print
-    $query->supported("http://dai.ly") != WWW::Quvi::OK
-    ? $query->{last_error}
-    : "supported";
+Return a list of formats available to an URL.
+
+  my ($rc, $formats) = q->formats($url);
+  croak "error: $q->{errmsg}\n" unless $rc == WWW::Quvi::OK;
+  print "$_\n" foreach (split /\|/, $formats);
+
+=item set_opts($opts)
+
+Set Query options (see also L</WWW::Quvi::Options>).
+
+=item supported($url)
+
+Returns a non-zero value if the URL is not supported.
+
+=back
 
 =head1 NOT IMPLEMENTED
 
@@ -144,5 +140,3 @@ C<quvi(1)>
 =head1 AUTHOR
 
 Toni Gundogdu <legatvs at sign gmail com>
-
-=cut
