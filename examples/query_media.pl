@@ -45,12 +45,12 @@ printf
   %10s : %s : %d bytes
   %s
 ",
-  $m->{title},
+  $m->{page_title},
   $m->{id},
   $m->{host},
-  $m->{url}->{content_type},
-  $m->{url}->{file_suffix},
-  $m->{url}->{length_bytes},
-  $m->{url}->{url};
+  $m->{content_type},
+  $m->{file_suffix},
+  $m->{content_length},
+  $m->{url};
 
 # vim: set ts=2 sw=2 tw=72 expandtab:

@@ -25,12 +25,18 @@ use Test::More;
 use WWW::Quvi;
 
 my %h = (
-  start_time => '',
-  page_url => '',
-  title => '',
-  host => '',
-  id => '',
-  ok => 0,
+  start_time    => '',
+  page_url      => '',
+  page_title    => '',
+  host          => '',
+  id            => '',
+  ok            => 0,
+  content_length=> -1,
+  content_type  => '',
+  file_suffix   => '',
+  url           => '',
+  thumbnail_url => '',
+  duration      => -1
 );
 
 plan tests => keys(%h) + 1;

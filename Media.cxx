@@ -1,5 +1,5 @@
 /* WWW::Quvi
- * Copyright (C) 2010,2011  Toni Gundogdu <legatvs@gmail.com>
+ * Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,31 +21,42 @@
 
 #include "Quvi.h"
 
+#define _init \
+ : content_length(-1), duration(-1), ok(0)
+
 Media::Media()
-  : ok(0)
+_init
 {
 }
 
 Media::Media(quvi_media_t m)
-  : ok(1)
+_init
 {
 #define _wrap(id,dst,type) \
     do { type t; quvi_getprop(m,id,&t); dst=t; } while (0)
-  _wrap(QUVIPROP_HOSTID,      host,       char*);
-  _wrap(QUVIPROP_PAGEURL,     page_url,   char*);
-  _wrap(QUVIPROP_PAGETITLE,   title,      char*);
-  _wrap(QUVIPROP_MEDIAID,     id,         char*);
+  _wrap(QUVIPROP_PAGETITLE,   page_title, char*);
   _wrap(QUVIPROP_STARTTIME,   start_time, char*);
+  _wrap(QUVIPROP_PAGEURL,     page_url,   char*);
+  _wrap(QUVIPROP_HOSTID,      host,       char*);
+  _wrap(QUVIPROP_MEDIAID,     id,         char*);
+  _wrap(QUVIPROP_MEDIACONTENTLENGTH, content_length, double);
+  _wrap(QUVIPROP_MEDIACONTENTTYPE, content_type, char*);
+  _wrap(QUVIPROP_FILESUFFIX,  file_suffix,   char*);
+  _wrap(QUVIPROP_MEDIAURL,    url,           char*);
+  _wrap(QUVIPROP_MEDIATHUMBNAILURL, thumbnail_url, char*);
+  _wrap(QUVIPROP_MEDIADURATION, duration, double);
 #undef _wrap
-  url = Url(m);
   quvi_parse_close(&m);
+  ok = 1;
 }
 
 Media::Media(const Media& v)
-  : ok(0)
+_init
 {
   _swap(v);
 }
+
+#undef _init
 
 Media& Media::operator=(const Media& v)
 {
@@ -57,15 +68,20 @@ Media::~Media()
 {
 }
 
-void Media::_swap(const Media& v)
+void Media::_swap(const Media& m)
 {
-  title       = v.title;
-  host        = v.host;
-  page_url    = v.page_url;
-  id          = v.id;
-  url         = v.url;
-  ok          = v.ok;
-  start_time  = v.start_time;
+  page_title    = m.page_title;
+  start_time    = m.start_time;
+  page_url      = m.page_url;
+  host          = m.host;
+  id            = m.id;
+  content_length = m.content_length;
+  content_type  = m.content_type;
+  file_suffix   = m.file_suffix;
+  url           = m.url;
+  thumbnail_url = m.thumbnail_url;
+  duration      = m.duration;
+  ok            = m.ok;
 }
 
 // vim: set ts=2 sw=2 tw=72 expandtab:

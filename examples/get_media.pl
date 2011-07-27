@@ -51,7 +51,7 @@ croak "error: $q->{last_error}\n"
 
 # Save to file.
 
-my $fn = "$m->{title}.$m->{url}->{file_suffix}";
+my $fn = "$m->{page_title}.$m->{file_suffix}";
 print STDERR "Saving to $fn...\n";
 
 my $ua = new LWP::UserAgent;
@@ -62,12 +62,12 @@ open my $fh, ">", "$fn" or croak "$?";
 my $bytes_received = 0;
 
 my $res =
-  $ua->request(HTTP::Request->new(GET => $m->{url}->{url}),
+  $ua->request(HTTP::Request->new(GET => $m->{url}),
   sub {
     my ($chunk,$res) = @_;
     $bytes_received += length($chunk);
     printf STDERR "%d%% - ",
-      100*$bytes_received/$m->{url}->{length_bytes};
+      100*$bytes_received/$m->{content_length};
     print STDERR "$bytes_received bytes received\r";
     print $fh $chunk;
   });

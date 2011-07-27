@@ -13,7 +13,7 @@ my $LD       = 'g++';
 
 my @OBJS;
 push @OBJS, $_.'$(OBJ_EXT)'
-    foreach qw(Media Options Query Quvi_wrap Url);
+    foreach qw(Media Options Query Quvi_wrap);
 
 my %pkgcfg_libquvi = ExtUtils::PkgConfig->find('libquvi >= 0.2.17');
 

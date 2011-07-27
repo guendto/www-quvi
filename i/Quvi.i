@@ -93,28 +93,22 @@ public:
   int verify;
 };
 
-class Url {
-public:
-  Url();
-public:
-%immutable;
-  std::string content_type;
-  std::string file_suffix;
-  double length_bytes;
-  std::string url;
-};
-
 class Media {
 public:
   Media();
 public:
 %immutable;
+  std::string thumbnail_url;
+  std::string content_type;
+  std::string file_suffix;
   std::string start_time;
+  std::string page_title;
+  double content_length;
   std::string page_url;
-  std::string title;
   std::string host;
+  std::string url;
+  double duration;
   std::string id;
-  Url url;
   int ok;
 };
 

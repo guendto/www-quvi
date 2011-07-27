@@ -25,7 +25,6 @@
 class Options;
 class Query;
 class Media;
-class Url;
 
 class Options
 {
@@ -46,23 +45,6 @@ public:
   int verify;
 };
 
-class Url
-{
-public:
-  Url();
-  Url(quvi_video_t);
-  Url(const Url&);
-  Url& operator=(const Url&);
-  virtual ~Url();
-private:
-  void _swap(const Url&);
-public:
-  std::string content_type;
-  std::string file_suffix;
-  double length_bytes;
-  std::string url;
-};
-
 class Media
 {
 public:
@@ -74,12 +56,17 @@ public:
 private:
   void _swap(const Media&);
 public:
+  std::string thumbnail_url;
+  std::string content_type;
+  std::string file_suffix;
+  std::string page_title;
   std::string start_time;
+  double content_length;
   std::string page_url;
-  std::string title;
   std::string host;
+  std::string url;
+  double duration;
   std::string id;
-  Url url;
   int ok;
 };
 
