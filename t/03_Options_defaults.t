@@ -31,7 +31,7 @@ my %h = (
   verify     => 1,
   verbose_libcurl => 0,
   resolve    => 1,
-  category   => WWW::Quvi::ProtoHttp
+  category   => WWW::Quvi::ProtoAll
 );
 
 plan tests => keys(%h)*2 + 1;

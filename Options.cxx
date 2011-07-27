@@ -26,7 +26,7 @@
   http_proxy(""), \
   verbose_libcurl(0), \
   format("default"), \
-  category(QUVIPROTO_HTTP), \
+  category(QUVIPROTO_ALL), \
   resolve(1), \
   verify(1)
 
