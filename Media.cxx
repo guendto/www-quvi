@@ -22,7 +22,7 @@
 #include "Quvi.h"
 
 #define _init \
- : content_length(-1), duration(-1), ok(0)
+ : content_length(-1), duration(-1)
 
 Media::Media()
 _init
@@ -47,7 +47,6 @@ _init
   _wrap(QUVIPROP_MEDIADURATION, duration, double);
 #undef _wrap
   quvi_parse_close(&m);
-  ok = 1;
 }
 
 Media::Media(const Media& v)
@@ -81,7 +80,6 @@ void Media::_swap(const Media& m)
   url           = m.url;
   thumbnail_url = m.thumbnail_url;
   duration      = m.duration;
-  ok            = m.ok;
 }
 
 // vim: set ts=2 sw=2 tw=72 expandtab:

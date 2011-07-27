@@ -31,14 +31,11 @@ use constant URL =>
   "http://www.dailymotion.com/video/xdpig1_city-of-scars_shortfilms";
 
 my $q = new WWW::Quvi::Query;
-$q->set_opts(new WWW::Quvi::Options);
 
 # Query media.
 
 my $m = $q->parse(URL);
-
-croak "error: $q->{last_error}\n"
-  unless $m->{ok};
+croak "error: $q->{errmsg}\n" unless $q->{ok};
 
 printf
  "%10s : %s : %s

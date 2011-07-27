@@ -17,31 +17,34 @@
  * 02110-1301  USA
  */
 
-#include <string>
 #include <stdexcept>
 #include <cassert>
+#include <string>
 
 #include <curl/curl.h>
 
 #include "Quvi.h"
 
+#define _init_m \
+ : _quvi(NULL), \
+   _curl(NULL), \
+   quvi_code(QUVI_OK), \
+   resp_code(-1), \
+   ok(1)
+
 Query::Query()
-  : _quvi(NULL),
-    _curl(NULL),
-    quvi_code(QUVI_OK),
-    resp_code(-1)
+_init_m
 {
   _init();
 }
 
 Query::Query(const Query& q)
-  : _quvi(NULL),
-    _curl(NULL),
-    quvi_code(QUVI_OK),
-    resp_code(-1)
+_init_m
 {
   _init();
 }
+
+#undef _init_m
 
 Query& Query::operator=(const Query& q)
 {
@@ -70,6 +73,8 @@ void Query::_init()
 
   quvi_getinfo(_quvi, QUVIINFO_CURL, &_curl);
   assert(_curl != NULL);
+
+  set_opts(_opts);
 }
 
 void Query::_close()
@@ -94,7 +99,7 @@ void Query::set_opts(const Options& opts)
     curl_easy_setopt(_curl, CURLOPT_USERAGENT, opts.user_agent.c_str());
 
   if ( !opts.http_proxy.empty() )
-    curl_easy_setopt(_curl, CURLOPT_PROXY, opts.http_proxy.c_str() );
+    curl_easy_setopt(_curl, CURLOPT_PROXY, opts.http_proxy.c_str());
 
   curl_easy_setopt(_curl, CURLOPT_VERBOSE, opts.verbose_libcurl ? 1L:0L);
 }
@@ -106,33 +111,42 @@ Media Query::parse(const std::string& url)
 
   quvi_getinfo(_quvi, QUVIINFO_HTTPCODE, &resp_code);
 
+  Media res;
+
   if (quvi_code != QUVI_OK)
+    _format_error();
+  else
     {
-      _format_error();
-      return Media();
+      res = Media(m);
+      ok = 1;
     }
 
-  return Media(m);
+  return res;
 }
 
-int Query::next_website(std::string& domain, std::string& formats)
+void Query::next_website(std::string& domain,
+                         std::string& formats)
 {
   char *d=NULL, *f=NULL;
-  const QUVIcode rc = quvi_next_supported_website(_quvi, &d, &f);
-  if (rc == QUVI_OK)
+  quvi_code = quvi_next_supported_website(_quvi, &d, &f);
+
+  if (quvi_code == QUVI_OK)
     {
-      domain  = d;
-      formats = f;
+      domain = d;
       quvi_free(d);
+      formats = f;
       quvi_free(f);
+      ok = 1;
     }
-  return static_cast<int>(rc);
+  else
+    ok = 0;
 }
 
 void Query::_format_error()
 {
   const char *e = quvi_strerror(_quvi, static_cast<QUVIcode>(quvi_code));
   errmsg = std::string(e);
+  ok = 0;
 }
 
 int Query::supported(const std::string& url)
@@ -145,22 +159,27 @@ int Query::supported(const std::string& url)
   return static_cast<int>(quvi_code);
 }
 
-int Query::formats(const std::string& url, std::string& dst)
+std::string Query::formats(const std::string& url)
 {
-  char *s;
+  char *s = NULL;
 
   quvi_code =
     quvi_query_formats(_quvi, const_cast<char*>(url.c_str()), &s);
 
-  if (quvi_code == QUVI_OK)
-    {
-      dst = s;
-      quvi_free(s);
-    }
-  else
-    _format_error();
+  quvi_getinfo(_quvi, QUVIINFO_HTTPCODE, &resp_code);
 
-  return static_cast<int>(quvi_code);
+  std::string res;
+
+  if (quvi_code != QUVI_OK)
+    _format_error();
+  else
+    {
+      res = s;
+      quvi_free(s);
+      ok = 1;
+    }
+
+  return res;
 }
 
 // vim: set ts=2 sw=2 tw=72 expandtab:

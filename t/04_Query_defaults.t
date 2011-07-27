@@ -25,9 +25,10 @@ use Test::More;
 use WWW::Quvi;
 
 my %h = (
-  errmsg => '',
+  errmsg    => '',
   quvi_code => 0,
-  resp_code => -1
+  resp_code => -1,
+  ok        => 1
 );
 
 plan tests => keys(%h) + 1;

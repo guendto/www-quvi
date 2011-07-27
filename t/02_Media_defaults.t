@@ -30,7 +30,6 @@ my %h = (
   page_title    => '',
   host          => '',
   id            => '',
-  ok            => 0,
   content_length=> -1,
   content_type  => '',
   file_suffix   => '',

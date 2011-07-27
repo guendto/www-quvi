@@ -28,15 +28,20 @@ use Carp qw(croak);
 use WWW::Quvi;
 
 my $q = new WWW::Quvi::Query;
-$q->set_opts(new WWW::Quvi::Options);
+=for comment
+my $o = new WWW::Quvi::Options;
+$o->{category} = WWW::Quvi::ProtoRtmp;
+$q->set_opts($o);
+=cut
 
-while (1) {
-  # fmts here has no real use as of libquvi 0.2.17. If you need to know
-  # the available formats to an URL, use the Query::formats instead, see
-  # the query_formats.pl for an example.
-  my ($done, $domain, $fmts) = $q->next_website;
-  last if $done;
-  printf "%32s : %s\n", $domain, $fmts;
+# The returned formats (f) has no real use since libquvi 0.2.17.
+# Query::next_website function is suitable for only listing the
+# supported  websites. If you want to know which formats are
+# available to an URL use the Query::formats instead.
+
+while ($q->{ok}) {
+  my ($d,$f) = $q->next_website;
+  printf "%32s : %s\n", $d, $f if $q->{ok};
 }
 
 # vim: set ts=2 sw=2 tw=72 expandtab:

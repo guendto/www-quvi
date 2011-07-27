@@ -109,7 +109,6 @@ public:
   std::string url;
   double duration;
   std::string id;
-  int ok;
 };
 
 /* Query::_init throws std::runtime_error if quvi_init fails. */
@@ -127,8 +126,8 @@ public:
   Query();
   virtual ~Query();
 public:
-  int next_website(std::string &domain, std::string &formats);
-  int formats(const std::string& url, std::string &formats);
+  void next_website(std::string &domain, std::string &formats);
+  std::string formats(const std::string&);
   int supported(const std::string&);
   Media parse(const std::string&);
   void set_opts(const Options&);
@@ -137,6 +136,7 @@ public:
   std::string errmsg;
   long quvi_code;
   long resp_code;
+  int ok;
 };
 
 %exception;

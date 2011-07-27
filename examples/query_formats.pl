@@ -32,16 +32,10 @@ use constant URL =>
 
 my $q = new WWW::Quvi::Query;
 
-# Set options.
-
-$q->set_opts(new WWW::Quvi::Options);
-
 # Query available formats to URL.
 
-my ($rc, $formats) = $q->formats(URL);
-
-croak "error: $q->{last_error}\n"
-  unless $rc == WWW::Quvi::OK;
+my $formats = $q->formats(URL);
+croak "error: $q->{errmsg}\n" unless $q->{ok};
 
 #print "$_\n" foreach split /\|/, $formats;
 printf "%20s : %s\n", $formats, URL;

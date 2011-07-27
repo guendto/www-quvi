@@ -45,9 +45,7 @@ my $q = new WWW::Quvi::Query;
 $q->set_opts($o);
 
 my $m = $q->parse(URL);
-
-croak "error: $q->{last_error}\n"
-  unless $m->{ok};
+croak "error: $q->{errmsg}\n" unless $q->{ok};
 
 # Save to file.
 

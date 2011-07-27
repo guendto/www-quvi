@@ -67,7 +67,6 @@ public:
   std::string url;
   double duration;
   std::string id;
-  int ok;
 };
 
 class Query
@@ -78,8 +77,8 @@ public:
   Query& operator=(const Query&);
   virtual ~Query();
 public:
-  int formats(const std::string&, std::string&);
-  int next_website(std::string&, std::string&);
+  void next_website(std::string&, std::string&);
+  std::string formats(const std::string&);
   int supported(const std::string&);
   Media parse(const std::string&);
   void set_opts(const Options&);
@@ -88,12 +87,14 @@ private:
   void _close();
   void _init();
 private:
+  Options _opts;
   quvi_t _quvi;
   void *_curl;
 public:
   std::string errmsg;
   long quvi_code;
   long resp_code;
+  int ok;
 };
 
 #endif

@@ -25,15 +25,13 @@ use Test::More tests => 3;
 use WWW::Quvi;
 
 my $q = new WWW::Quvi::Query;
-$q->set_opts(new WWW::Quvi::Options);
 
 # Next (supported) website.
 
-my $n=0;
-while (1) {
-  my ($done) = $q->next_website;
-  last if $done;
-  ++$n;
+my $n = 0;
+while ($q->{ok}) {
+  my ($d) = $q->next_website;
+  ++$n if $q->{ok};
 }
 isnt($n, 0);
 #diag $n;

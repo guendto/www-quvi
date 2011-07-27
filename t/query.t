@@ -31,19 +31,17 @@ $ENV{HAVE_INTERNET}
 use constant URL =>
   "http://www.dailymotion.com/video/xdpig1_city-of-scars_shortfilms";
 
-my $o = new WWW::Quvi::Options;
 my $q = new WWW::Quvi::Query;
-$q->set_opts($o);
 
 # Formats.
 
-my ($rc, $fmts) = $q->formats(URL);
-is($rc, WWW::Quvi::OK) or diag $q->{last_error};
+my $fmts = $q->formats(URL);
+is($q->{ok}, 1) or diag $q->{errmsg};
 #diag $fmts;
 
 # Media.
 
 my $m = $q->parse(URL);
-is($m->{ok}, 1) or diag $q->{last_error};
+is($q->{ok}, 1) or diag $q->{errmsg};
 
 # vim: set ts=2 sw=2 tw=72 expandtab:
