@@ -121,7 +121,6 @@ public:
 }
 
 %apply std::string &OUTPUT { std::string &domain, std::string &formats };
-%apply std::string &OUTPUT { std::string &formats };
 
 class Query {
 public:
