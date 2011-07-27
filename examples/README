@@ -1,0 +1,4 @@
+get_media.pl     - Simple media downloader
+query_formats.pl - Query formats available to an URL
+query_media.pl   - Query media details to an URL
+websites.pl      - Dump supported websites

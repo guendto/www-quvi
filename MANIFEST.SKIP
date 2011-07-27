@@ -2,7 +2,6 @@
 ^.git/
 autogen.sh
 patches/
-scripts/
 todo/
 .gz$
 doc/
