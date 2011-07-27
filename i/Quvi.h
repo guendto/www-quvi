@@ -1,5 +1,5 @@
 /* WWW::Quvi
- * Copyright (C) 2010,2011  Toni Gundogdu <legatvs@gmail.com>
+ * Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -91,12 +91,15 @@ public:
   Query& operator=(const Query&);
   virtual ~Query();
 public:
-  Media parse(const std::string&, const Options&);
+  int formats(const std::string&, std::string&);
   int next_website(std::string&, std::string&);
   int supported(const std::string&);
+  Media parse(const std::string&);
+  void set_opts(const Options&);
 private:
-  void _init();
+  void _format_error();
   void _close();
+  void _init();
 private:
   quvi_t _quvi;
   void *_curl;

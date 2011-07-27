@@ -80,7 +80,7 @@ void Query::_close()
   _curl = NULL;
 }
 
-Media Query::parse(const std::string& url, const Options& opts)
+void Query::set_opts(const Options& opts)
 {
   if ( !opts.format.empty() )
     quvi_setopt(_quvi, QUVIOPT_FORMAT, opts.format.c_str() );
@@ -97,7 +97,10 @@ Media Query::parse(const std::string& url, const Options& opts)
     curl_easy_setopt(_curl, CURLOPT_PROXY, opts.http_proxy.c_str() );
 
   curl_easy_setopt(_curl, CURLOPT_VERBOSE, opts.verbose_libcurl ? 1L:0L);
+}
 
+Media Query::parse(const std::string& url)
+{
   quvi_media_t m;
   quvi_code = quvi_parse(_quvi, const_cast<char*>(url.c_str()), &m);
 
@@ -105,8 +108,7 @@ Media Query::parse(const std::string& url, const Options& opts)
 
   if (quvi_code != QUVI_OK)
     {
-      const char *e = quvi_strerror(_quvi, static_cast<QUVIcode>(quvi_code));
-      last_error = std::string(e);
+      _format_error();
       return Media();
     }
 
@@ -127,17 +129,36 @@ int Query::next_website(std::string& domain, std::string& formats)
   return static_cast<int>(rc);
 }
 
+void Query::_format_error()
+{
+  const char *e = quvi_strerror(_quvi, static_cast<QUVIcode>(quvi_code));
+  last_error = std::string(e);
+}
+
 int Query::supported(const std::string& url)
 {
   quvi_code = quvi_supported(_quvi, const_cast<char*>(url.c_str()));
 
   if (quvi_code != QUVI_OK)
-    {
-      const char *e =
-        quvi_strerror(_quvi, static_cast<QUVIcode>(quvi_code));
+    _format_error();
 
-      last_error = std::string(e);
+  return static_cast<int>(quvi_code);
+}
+
+int Query::formats(const std::string& url, std::string& dst)
+{
+  char *s;
+
+  quvi_code =
+    quvi_query_formats(_quvi, const_cast<char*>(url.c_str()), &s);
+
+  if (quvi_code == QUVI_OK)
+    {
+      dst = s;
+      quvi_free(s);
     }
+  else
+    _format_error();
 
   return static_cast<int>(quvi_code);
 }

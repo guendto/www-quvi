@@ -1,5 +1,5 @@
 /* WWW::Quvi
- * Copyright (C) 2010,2011  Toni Gundogdu <legatvs@gmail.com>
+ * Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,7 +29,7 @@
 
 %inline %{
 
-char *_VERSION = VERSION;
+static char *_VERSION = VERSION;
 
 typedef enum {
   libquviVersion      = QUVI_VERSION,
@@ -37,9 +37,9 @@ typedef enum {
   ModuleVersion
 } quviVersion;
 
-static char* version (quviVersion n=ModuleVersion) {
+static char* version(quviVersion n=ModuleVersion) {
   if (n == ModuleVersion) return _VERSION;
-  return quvi_version ((QUVIversion)n);
+  return quvi_version(static_cast<QUVIversion>(n));
 }
 
 /*
@@ -71,14 +71,14 @@ typedef enum {
 } quviCode;
 
 typedef enum {
-ProtoHttp = 0x1,
-ProtoMms  = 0x2,
-ProtoRtsp = 0x4,
-ProtoRtmp = 0x8,
-ProtoAll  = (ProtoHttp|ProtoMms|ProtoRtsp|ProtoRtmp)
+  ProtoHttp = 0x1,
+  ProtoMms  = 0x2,
+  ProtoRtsp = 0x4,
+  ProtoRtmp = 0x8,
+  ProtoAll  = (ProtoHttp|ProtoMms|ProtoRtsp|ProtoRtmp)
 } quviCategory;
 
-%}
+%} /* %inline */
 
 class Options {
 public:
@@ -127,15 +127,18 @@ public:
 }
 
 %apply std::string &OUTPUT { std::string &domain, std::string &formats };
+%apply std::string &OUTPUT { std::string &formats };
 
 class Query {
 public:
   Query();
   virtual ~Query();
 public:
-  Media parse(const std::string&, const Options&);
   int next_website(std::string &domain, std::string &formats);
+  int formats(const std::string& url, std::string &formats);
   int supported(const std::string&);
+  Media parse(const std::string&);
+  void set_opts(const Options&);
 public:
 %immutable;
   std::string last_error;
