@@ -25,7 +25,7 @@ use Test::More;
 use WWW::Quvi;
 
 my %h = (
-  last_error => '',
+  errmsg => '',
   quvi_code => 0,
   resp_code => -1
 );
