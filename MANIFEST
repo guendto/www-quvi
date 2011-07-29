@@ -26,6 +26,7 @@ t/query.t
 examples/get_media.pl
 examples/query_formats.pl
 examples/query_media.pl
+examples/version.pl
 examples/websites.pl
 examples/README
 scripts/wqwrap
