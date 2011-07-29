@@ -6,13 +6,14 @@ WWW::Quvi - Perl extension interface for libquvi
 
   use WWW::Quvi;
   my $q = new WWW::Quvi::Query;
-  my $m = $query->parse($url);
+  my $m = $q->parse($url);
   croak "error: $q->{errmsg}" unless $q->{ok};
 
 =head1 DESCRIPTION
 
 WWW::Quvi provides a Perl interface to libquvi, a small C library for
-parsing Flash media stream URLs.
+parsing Flash media stream URLs. It is written in C++ and uses SWIG to
+connect to the libquvi API.
 
 =head1 DOCUMENTATION
 
@@ -124,9 +125,51 @@ Last response (assumed HTTP) code returned by the server.
 
 =back
 
+=head1 RETURN CODES (WWW::Quvi::*)
+
+L</WWW::Quvi::Query> saves the last libquvi returned code as
+C<quvi_code>. In most cases, it is sufficient to just check
+the C<ok> and use the C<errmsg> instead.
+
+  OK                - No error
+  Mem               - Memory allocation error
+  BadHandle         - Bad handle
+  InvArg            - Invalid function argument
+  CurlInit          - libquvi initialization failure
+  Last              - Last element in the list
+  AbortedByCallBack - Aborted by a callback function
+  LuaInit           - liblua initialization failure
+  NoLuaWebsite      - Failed to find any libquvi webscripts
+  NoLuaUtil         - Failed to find the libquvi utility scripts
+  NoSupport         - libquvi cannot handle the URL
+  Callback          - Network callback error occurred
+  Iconv             - libiconv error occurred
+  Lua               - liblua (or webscript) error occurred
+
+Note that L</WWW::Quvi::Query> saves the last server returned
+B<HTTP code> as C<resp_code>. This documentation does not cover
+the I<HTTP codes>.
+
+=head1 PROTOCOL CATEGORIES (WWW::Quvi::*)
+
+The protocol category defines which of the webscripts, that libquvi
+provides, your application is interested in.
+
+For example, if your application can handle only HTTP connections,
+then it would make sense to set the C<category> (see
+L</WWW::Quvi::Options>) to C<ProtoHttp>.
+
+  ProtoHttp - Protocol category HTTP
+  ProtoMms  - ...
+  ProtoRTSP - ...
+  ProtoRTMP - ...
+  ProtoAll  - Any of the above categories
+
 =head1 NOT IMPLEMENTED
 
 =over 4
+
+=item B<quvi_supported_ident at al>
 
 =item B<Linked list interface>
 
