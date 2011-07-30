@@ -105,6 +105,13 @@ Set Query options (see also L</WWW::Quvi::Options>).
 
 Returns a non-zero value if the URL is not supported.
 
+This is a networkless check meaning that it will return
+WWW::Quvi::NoSupport for most shortened (or compressed) URLs.
+
+If your application must support such URLs, use Query::parse
+instead and make sure you have not set 'resolve' to 0 (disable)
+in your L</WWW::Quvi::Options>.
+
 =item ok  [variable]
 
 Non-zero if an error occurred.
