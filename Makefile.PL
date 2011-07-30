@@ -2,7 +2,7 @@
 use warnings;
 use strict;
 
-use 5.008009;
+use 5.010001;
 use ExtUtils::MakeMaker;
 use ExtUtils::PkgConfig;
 use ExtUtils::Depends;
@@ -34,9 +34,6 @@ WriteMakefile(
         )
     : (),
     'PREREQ_PM' => {
-# Earlier versions may work. The module has been confirmed to work with:
-# Optional:
-'Test::Pod' => 1.44, # <http://search.cpan.org/perldoc?Test::Pod>
     },
     LICENSE        => 'lgpl',
     dist => {
