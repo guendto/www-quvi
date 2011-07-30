@@ -43,6 +43,6 @@ export PERL5LIB=$PERL5LIB:`pwd`/lib
 export PERL5LIB=$PERL5LIB:`pwd`/blib/arch/auto/WWW/Quvi
 #echo $PERL5LIB
 
-perl $1
+perl $@
 
 # vim: set ts=2 sw=2 tw=72 expandtab:
