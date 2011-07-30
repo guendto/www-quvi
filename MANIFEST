@@ -24,6 +24,7 @@ t/support.t
 t/version.t
 t/query.t
 examples/get_media.pl
+examples/supported.pl
 examples/query_formats.pl
 examples/query_media.pl
 examples/version.pl
