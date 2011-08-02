@@ -50,17 +50,17 @@ A container hash for the options used with libquvi that would normally
 A container hash that holds the parsed media details accessible using
 C<quvi_getprop(3)>.
 
-  $media->{content_length}  - Content length as returned by the server
-  $media->{thumbnail_url}   - Thumbnail URL (if any)
-  $media->{content_type}    - Content-type as returned by the server
-  $media->{file_suffix}     - File suffix parsed from the content-type
-  $media->{start_time}      - Start time for media (if any)
-  $media->{page_title}      - Media title
-  $media->{page_url}        - Page URL
-  $media->{duration}        - Duration in msec (if any)
-  $media->{host}            - Host string
-  $media->{url}             - Media stream URL
-  $media->{id}              - Media ID
+  $media->{content_length}  # Content length as returned by the server
+  $media->{thumbnail_url}   # Thumbnail URL (if any)
+  $media->{content_type}    # Content-type as returned by the server
+  $media->{file_suffix}     # File suffix parsed from the content-type
+  $media->{start_time}      # Start time for media (if any)
+  $media->{page_title}      # Media title
+  $media->{page_url}        # Page URL
+  $media->{duration}        # Duration in msec (if any)
+  $media->{host}            # Host string
+  $media->{url}             # Media stream URL
+  $media->{id}              # Media ID
 
 =head1 WWW::Quvi::Query
 
@@ -83,7 +83,7 @@ function is most useful for listing the available support.
 Use the C<formats> function (below) instead if you need to know which
 formats are available to an URL.
 
-  while ($q->{ok})
+  while ($q->{ok}) {
     my ($d,$f) = $q->next_website;
     print "$d\t$f\n" if $q->{ok};
   }
@@ -138,20 +138,20 @@ L</WWW::Quvi::Query> saves the last libquvi returned code as
 C<quvi_code>. In most cases, it is sufficient to just check
 the C<ok> and use the C<errmsg> instead.
 
-  OK                - No error
-  Mem               - Memory allocation error
-  BadHandle         - Bad handle
-  InvArg            - Invalid function argument
-  CurlInit          - libquvi initialization failure
-  Last              - Last element in the list
-  AbortedByCallBack - Aborted by a callback function
-  LuaInit           - liblua initialization failure
-  NoLuaWebsite      - Failed to find any libquvi webscripts
-  NoLuaUtil         - Failed to find the libquvi utility scripts
-  NoSupport         - libquvi cannot handle the URL
-  Callback          - Network callback error occurred
-  Iconv             - libiconv error occurred
-  Lua               - liblua (or webscript) error occurred
+  OK                # No error
+  Mem               # Memory allocation error
+  BadHandle         # Bad handle
+  InvArg            # Invalid function argument
+  CurlInit          # libquvi initialization failure
+  Last              # Last element in the list
+  AbortedByCallBack # Aborted by a callback function
+  LuaInit           # liblua initialization failure
+  NoLuaWebsite      # Failed to find any libquvi webscripts
+  NoLuaUtil         # Failed to find the libquvi utility scripts
+  NoSupport         # libquvi cannot handle the URL
+  Callback          # Network callback error occurred
+  Iconv             # libiconv error occurred
+  Lua               # liblua (or webscript) error occurred
 
 Note that L</WWW::Quvi::Query> saves the last server returned
 B<HTTP code> as C<resp_code>. This documentation does not cover
@@ -166,11 +166,11 @@ For example, if your application can handle only HTTP connections,
 then it would make sense to set the C<category> (see
 L</WWW::Quvi::Options>) to C<ProtoHttp>.
 
-  ProtoHttp - Protocol category HTTP
-  ProtoMms  - ...
-  ProtoRTSP - ...
-  ProtoRTMP - ...
-  ProtoAll  - Any of the above categories
+  ProtoHttp     # Protocol category HTTP
+  ProtoMms      # ...
+  ProtoRTSP     # ...
+  ProtoRTMP     # ...
+  ProtoAll      # Any of the above categories
 
 =head1 NOT IMPLEMENTED
 

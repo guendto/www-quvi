@@ -4,4 +4,4 @@ autogen.sh
 patches/
 todo/
 .gz$
-man1/
+doc/man3/

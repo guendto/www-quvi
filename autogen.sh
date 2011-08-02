@@ -19,7 +19,7 @@
 # 02110-1301  USA
 
 wrap="Quvi_wrap.cxx"
-pod="man1/Quvi.pod"
+pod="doc/man3/Quvi.pod"
 dest="lib/WWW/"
 i="i/Quvi.i"
 
