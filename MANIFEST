@@ -1,6 +1,7 @@
 ChangeLog
 ChangeLog.pre-gitlog
 COPYING
+INSTALL
 lib/WWW/Quvi.pm
 lib/WWW/Quvi.pod
 Options.cxx

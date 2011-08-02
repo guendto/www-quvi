@@ -1,63 +1,21 @@
 
 
-WWW::Quvi
-============
+GENERAL
 
-WWW::Quvi provides a Perl interface to libquvi, a library for parsing video
-download links.
+WWW::Quvi provides a Perl interface to libquvi, a small C library for
+parsing Flash media stream URLs. It is written in C++ and uses SWIG to
+connect to the libquvi API.
 
-This documentation contains the Perl specific details and some sample code.
-The libquvi documentation should be consulted for the API details at
-<http://quvi.googlecode.com/>.
-
-WWW: <http://www-quvi.googlecode.com/>
-GIT: <git://repo.or.cz/www-quvi.git>
+Home  : <http://www-quvi.googlecode.com/>
+gitweb: <git://repo.or.cz/w/www-quvi.git>
 
 
-PREREQUISITES
+GETTING STARTED
 
-  * quvi 0.2.12+ <http://quvi.googlecode.com/>
-  * Perl 5.8.9+  <http://perl.org/>
-
-Additionally (to build):
-  * ExtUtils::MakeMaker <http://search.cpan.org/perldoc?ExtUtils::Depends>
-  * ExtUtils::PkgConfig <http://search.cpan.org/perldoc?ExtUtils::PkgConfig>
-  * ExtUtils::Depends   <http://search.cpan.org/perldoc?ExtUtils::Depends>
+Please read the reference documentation ($top_srcdir/lib/WWW/Quvi.pod)
+and see the examples ($top_srcdir/examples/).
 
 
-INSTALLATION
+LICENSE
 
-To install this module, type the following:
-
-    perl Makefile.PL
-    make
-    make test (optional, see notes below)
-    make install (see notes below)
-
-
-WHAT IS NOT IMPLEMENTED
-
-  * Callbacks (e.g. status callback)
-
-  * Multiple download links per video
-
-
-NOTES
-
-* Developed on and for Linux, should port fairly easily to other systems,
-    - Randomly tested on FreeBSD
-
-* You can edit CXXFLAGS LDFLAGS, etc. in Makefile.PL
-    - ExtUtils::MakeMaker supports many more (URLs under "See also")
-
-* You can specify an install "prefix" with INSTALL_BASE
-    - e.g. perl Makefile.PL INSTALL_BASE=/usr/local
-
-* Set HAVE_INTERNET if you want to run the tests depending on the Internet
-    - e.g. env HAVE_INTERNET=1 make test
-
-* See also:
-    - <http://search.cpan.org/perldoc?ExtUtils::MakeMaker>
-    - <http://perldoc.perl.org/ExtUtils/MakeMaker/FAQ.html>
-
-
+WWW::Quvi is free software, licensed under the LGPLv2.1+.

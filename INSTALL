@@ -1,0 +1,39 @@
+
+PREREQUISITES
+
+  * quvi 0.2.17+  <http://quvi.googlecode.com/>
+  * Perl 5.10.1+  <http://perl.org/>
+
+Additionally (to build):
+  * ExtUtils::MakeMaker <http://search.cpan.org/perldoc?ExtUtils::MakeMaker>
+  * ExtUtils::PkgConfig <http://search.cpan.org/perldoc?ExtUtils::PkgConfig>
+  * ExtUtils::Depends   <http://search.cpan.org/perldoc?ExtUtils::Depends>
+
+
+INSTALLATION
+
+To install this module, type the following:
+
+  perl Makefile.PL
+  make
+  make test (optional, see notes below)
+  make install (see notes below)
+
+See Makefile.PL if you need to edit the CXXFLAGS. Refer to the
+ExtUtils::MakeMaker documentation for more instructions.
+
+You can define the installation prefix with INSTALL_BASE, e.g.:
+  perl Makefile.PL INSTALL_BASE=/usr/local
+
+Recommended reading:
+  * <http://search.cpan.org/perldoc?ExtUtils::MakeMaker>
+  * <http://perldoc.perl.org/ExtUtils/MakeMaker/FAQ.html>
+
+
+TESTS
+
+If you run the tests and you want to run the internet based tests,
+define HAVE_INTERNET with "make test", e.g.:
+  env HAVE_INTERNET=1 make test
+
+# vim: set ts=2 sw=2 tw=72 expandtab:
