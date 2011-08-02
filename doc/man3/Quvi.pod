@@ -149,9 +149,9 @@ the C<ok> and use the C<errmsg> instead.
   NoLuaWebsite      # Failed to find any libquvi webscripts
   NoLuaUtil         # Failed to find the libquvi utility scripts
   NoSupport         # libquvi cannot handle the URL
-  Callback          # Network callback error occurred
-  Iconv             # libiconv error occurred
-  Lua               # liblua (or webscript) error occurred
+  CallbackError     # Network callback error occurred
+  IconvError        # libiconv error occurred
+  LuaError          # liblua (or webscript) error occurred
 
 Note that L</WWW::Quvi::Query> saves the last server returned
 B<HTTP code> as C<resp_code>. This documentation does not cover
