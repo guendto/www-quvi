@@ -32,12 +32,12 @@ scalar @ARGV || usage();
 my $q = new WWW::Quvi::Query;
 
 printf "%s : %s\n",
-  $ARGV[0],
-  $q->supported($ARGV[0]) == WWW::Quvi::OK
-    ? "Yes"
-    : "No";
+  $ARGV[0], $q->supported($ARGV[0]) == WWW::Quvi::OK
+  ? "Yes"
+  : "No";
 
-sub usage() {
+sub usage()
+{
   print "usage: $0 [URL]\n";
   exit 0;
 }

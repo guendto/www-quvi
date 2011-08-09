@@ -28,6 +28,7 @@ use Carp qw(croak);
 use WWW::Quvi;
 
 my $q = new WWW::Quvi::Query;
+
 =for comment
 my $o = new WWW::Quvi::Options;
 $o->{category} = WWW::Quvi::ProtoRtmp;
@@ -39,8 +40,9 @@ $q->set_opts($o);
 # supported  websites. If you want to know which formats are
 # available to an URL use the Query::formats instead.
 
-while ($q->{ok}) {
-  my ($d,$f) = $q->next_website;
+while ($q->{ok})
+{
+  my ($d, $f) = $q->next_website;
   printf "%32s : %s\n", $d, $f if $q->{ok};
 }
 

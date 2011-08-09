@@ -37,8 +37,7 @@ my $q = new WWW::Quvi::Query;
 my $m = $q->parse(URL);
 croak "error: $q->{errmsg}\n" unless $q->{ok};
 
-printf
- "%10s : %s : %s
+printf "%10s : %s : %s
   %10s : %s : %d bytes
   %s
 ",
