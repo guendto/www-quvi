@@ -28,6 +28,7 @@ use strict;
 use LWP::UserAgent;
 use Carp qw(croak);
 use WWW::Quvi;
+use v5.10;
 
 use constant AGENT => 'Mozilla/5.0';
 use constant URL   => 'http://vimeo.com/26721145';
@@ -39,7 +40,7 @@ $o->{user_agent} = AGENT;
 
 # Query media.
 
-print STDERR "Querying media...\n";
+say STDERR "Querying media...";
 
 my $q = new WWW::Quvi::Query;
 $q->set_opts($o);
@@ -50,7 +51,7 @@ croak "error: $q->{errmsg}\n" unless $q->{ok};
 # Save to file.
 
 my $fn = "$m->{page_title}.$m->{file_suffix}";
-print STDERR "Saving to $fn...\n";
+say STDERR "Saving to $fn...";
 
 my $ua = new LWP::UserAgent;
 $ua->env_proxy;
@@ -59,18 +60,19 @@ $ua->agent(AGENT);
 open my $fh, ">", "$fn" or croak "$?";
 my $bytes_received = 0;
 
-my $res =
-  $ua->request(HTTP::Request->new(GET => $m->{url}),
+my $res = $ua->request(
+  HTTP::Request->new(GET => $m->{url}),
   sub {
-    my ($chunk,$res) = @_;
+    my ($chunk, $res) = @_;
     $bytes_received += length($chunk);
-    printf STDERR "%d%% - ",
-      100*$bytes_received/$m->{content_length};
-    print STDERR "$bytes_received bytes received\r";
-    print $fh $chunk;
-  });
+    my $s = sprintf "%d%% - ",
+      100 * $bytes_received / $m->{content_length};
+    print STDERR "$s $bytes_received bytes received\r";
+    say $fh $chunk;
+  }
+);
 
 close $fh;
-print "\n", $res->status_line, "\n";
+say "\n", $res->status_line;
 
 # vim: set ts=2 sw=2 tw=72 expandtab:
