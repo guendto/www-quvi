@@ -23,7 +23,7 @@ $libquvi->set_libs($pkgcfg_libquvi{libs});
 
 WriteMakefile(
     NAME            => 'WWW::Quvi',
-    VERSION         => '0.20',
+    VERSION         => '0.2.0',
     CC              => $CXX,
     CCFLAGS         => $CXXFLAGS,
     LD              => $LD,

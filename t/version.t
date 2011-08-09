@@ -26,9 +26,9 @@ use WWW::Quvi;
 
 # Version.
 
-like(&WWW::Quvi::version, qr{^\d+.\d+$});
+like(&WWW::Quvi::version, qr{^\d+.\d+.\d+$});
 
-like(&WWW::Quvi::version(WWW::Quvi::ModuleVersion), qr{^\d+.\d+$});
+like(&WWW::Quvi::version(WWW::Quvi::ModuleVersion), qr{^\d+.\d+.\d+$});
 
 like(&WWW::Quvi::version(WWW::Quvi::libquviVersion), qr{^\d+.\d+.\d+$});
 
