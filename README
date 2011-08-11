@@ -19,3 +19,5 @@ and see the examples ($top_srcdir/examples/).
 LICENSE
 
 WWW::Quvi is free software, licensed under the LGPLv2.1+.
+
+vim: set ts=2 sw=2 tw=72 expandtab:

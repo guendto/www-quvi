@@ -16,7 +16,7 @@ To install this module, type the following:
 
   perl Makefile.PL
   make
-  make test (optional, see notes below)
+  make test (optional, see "TESTS" notes below)
   make install (see notes below)
 
 See Makefile.PL if you need to edit the CXXFLAGS. Refer to the
@@ -36,4 +36,4 @@ If you run the tests and you want to run the internet based tests,
 define HAVE_INTERNET with "make test", e.g.:
   env HAVE_INTERNET=1 make test
 
-# vim: set ts=2 sw=2 tw=72 expandtab:
+vim: set ts=2 sw=2 tw=72 expandtab:
