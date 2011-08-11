@@ -109,7 +109,7 @@ Media Query::parse(const std::string& url)
   quvi_media_t m;
   quvi_code = quvi_parse(_quvi, const_cast<char*>(url.c_str()), &m);
 
-  quvi_getinfo(_quvi, QUVIINFO_HTTPCODE, &resp_code);
+  quvi_getinfo(_quvi, QUVIINFO_RESPONSECODE, &resp_code);
 
   Media res;
 
@@ -166,7 +166,7 @@ std::string Query::formats(const std::string& url)
   quvi_code =
     quvi_query_formats(_quvi, const_cast<char*>(url.c_str()), &s);
 
-  quvi_getinfo(_quvi, QUVIINFO_HTTPCODE, &resp_code);
+  quvi_getinfo(_quvi, QUVIINFO_RESPONSECODE, &resp_code);
 
   std::string res;
 
