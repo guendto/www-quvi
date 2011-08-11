@@ -29,7 +29,7 @@ WriteMakefile(
     LD              => $LD,
     OBJECT          => (join ' ',@OBJS),
     ( $[ >= 5.8 )
-    ? ( AUTHOR     => 'Toni Gundogdu legatvs at sign gmail com',
+    ? ( AUTHOR     => 'Toni Gundogdu <legatvs at sign gmail com>',
         'ABSTRACT' => 'Perl bindings for libquvi'
         )
     : (),
