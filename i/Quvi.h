@@ -49,7 +49,7 @@ class Media
 {
 public:
   Media();
-  Media(quvi_video_t);
+  Media(quvi_media_t);
   Media(const Media&);
   Media& operator=(const Media&);
   virtual ~Media();
