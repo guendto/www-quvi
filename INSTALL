@@ -1,7 +1,7 @@
 
 PREREQUISITES
 
-  * quvi 0.2.17+  <http://quvi.googlecode.com/>
+  * quvi 0.2.17+  <http://quvi.sourceforge.net/>
   * Perl 5.10.1+  <http://perl.org/>
 
 Additionally (to build):

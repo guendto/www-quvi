@@ -6,7 +6,7 @@ WWW::Quvi provides a Perl interface to libquvi, a small C library for
 parsing Flash media stream URLs. It is written in C++ and uses SWIG to
 connect to the libquvi API.
 
-Home  : <http://www-quvi.googlecode.com/>
+Home  : <http://www-quvi.sourceforge.net/>
 gitweb: <git://repo.or.cz/w/www-quvi.git>
 
 
