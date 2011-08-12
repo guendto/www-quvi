@@ -85,7 +85,7 @@ formats are available to an URL.
 
   while ($q->{ok}) {
     my ($d,$f) = $q->next_website;
-    print "$d\t$f\n" if $q->{ok};
+    say "$d\t$f" if $q->{ok};
   }
 
 =item formats($url)  [function]
@@ -95,7 +95,7 @@ format ID is separated by a pipe character.
 
   my $fmts = $q->formats($url);
   croak "error: $q->{errmsg}" unless $q->{ok};
-  print "$_\n" foreach (split /\|/, $fmts);
+  say $_ foreach (split /\|/, $fmts);
 
 =item set_opts($opts)  [function]
 
@@ -190,8 +190,8 @@ L</WWW::Quvi::Options>) to C<ProtoHttp>.
 
 =head1 WWW
 
- Home  : http://www-quvi.sourceforge.net/
- gitweb: http://repo.or.cz/w/www-quvi.git
+ Home  : <http://www-quvi.sourceforge.net/>
+ gitweb: <http://repo.or.cz/w/www-quvi.git>
 
 =head1 LICENSE
 
