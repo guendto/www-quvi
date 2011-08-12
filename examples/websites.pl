@@ -35,10 +35,17 @@ $o->{category} = WWW::Quvi::ProtoRtmp;
 $q->set_opts($o);
 =cut
 
-# The returned formats (f) has no real use since libquvi 0.2.17.
-# Query::next_website function is suitable for only listing the
-# supported  websites. If you want to know which formats are
-# available to an URL use the Query::formats instead.
+# NOTE: "Query::next_website" (quvi_next_supported_website) returns
+# a "formats" string ("f" below) which is a static list ("default" or
+# "default|best"). The static list has little real use to applications.
+#
+# Instead, if you need to know which format strings are available to an
+# URL, use Query::formats instead. This function returns a dynamically
+# created list of available formats constructed from the data returned
+# by the server. See also  <examples/query_formats.pl>.
+#
+# Refer to the libquvi API documentation for more info about the
+# formats, etc. at <http://quvi.sf.net/doc/>.
 
 while ($q->{ok})
 {
