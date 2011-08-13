@@ -1,4 +1,35 @@
 
+0.2.0  Sat Aug 13 2011  Toni Gundogdu
+Notes:
+        - There are some changes that break the backward compatibility
+            - Refer to the extension documentation, see examples/
+            - See also "Changes: API"
+Changes:
+        - Use xx.yy.zz for versioning the extension (as oppose to xx.yy)
+        - Use the new "media" interface introduced in libquvi 0.2.15
+        - Make <http://www-quvi.sourceforge.net/> the new home
+        - Bump libquvi prerequisite to 0.2.17
+        - Bump Perl prerequisite to 5.10.1
+Changes: API
+        - Make 'ok' flag a member of WWW::Quvi::Query instead of Media
+        - Pass WWW::Quvi::Options using WWW::Quvi::Query::set_opts
+            - WWW::Quvi::parse no longer req. it as a parameter
+        - Bind quvi_query_formats as WWW::Quvi::Query::formats
+        - WWW::Quvi::Query::last_error was renamed to 'errmsg'
+        - WWW::Quvi::Video was renamed to WWW::Quvi::Media
+        - WWW::Quvi::Link was renamed to WWW::Quvi::Url
+        - Adapt to upcoming libquvi 0.2.20 changes
+            - Removal of deprecated symbols
+            - Make ProtoAll the new default
+Changes: dist
+        - Re-organize the source tree
+        - Rewrite tests in t/
+        - Add examples/
+Bugfixes:
+        - Use 'int' instead of 'bool' type
+            - This created unexpected results in some configurations
+
+
 0.04  Fri Mar 04 2011  Toni Gundogdu
 Changes:
         - Bump libquvi prereq to 0.2.12
