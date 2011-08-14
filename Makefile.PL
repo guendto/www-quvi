@@ -22,26 +22,36 @@ $libquvi->set_inc($pkgcfg_libquvi{cflags});
 $libquvi->set_libs($pkgcfg_libquvi{libs});
 
 WriteMakefile(
-    NAME            => 'WWW::Quvi',
-    VERSION         => '0.2.0',
-    CC              => $CXX,
-    CCFLAGS         => $CXXFLAGS,
-    LD              => $LD,
-    OBJECT          => (join ' ',@OBJS),
-    ( $[ >= 5.8 )
-    ? ( AUTHOR     => 'Toni Gundogdu <legatvs at sign gmail com>',
-        'ABSTRACT' => 'Perl bindings for libquvi'
-        )
-    : (),
-    'PREREQ_PM' => {
-    },
-    LICENSE        => 'lgpl',
-    dist => {
-        PREOP =>
+  NAME            => 'WWW::Quvi',
+  DISTNAME        => 'WWW-Quvi',
+  VERSION         => '0.2.0',
+  CC              => $CXX,
+  CCFLAGS         => $CXXFLAGS,
+  LD              => $LD,
+  OBJECT          => (join ' ',@OBJS),
+  PREREQ_PM => {
+  },
+  BUILD_REQUIRES => {
+    'ExtUtils::MakeMaker' => 0,
+    'ExtUtils::PkgConfig' => 0,
+    'ExtUtils::Depends' => 0,
+  },
+  CONFIGURE_REQUIRES => {
+    'ExtUtils::MakeMaker' => 0,
+    'ExtUtils::PkgConfig' => 0,
+    'ExtUtils::Depends' => 0,
+  },
+  MIN_PERL_VERSION => 5.010001,
+  ($] >= 5.005 ?
+    (ABSTRACT_FROM => 'lib/WWW/Quvi.pod',
+     AUTHOR => 'Toni Gundogdu <legatvs@cpan.org>') : ()),
+  LICENSE        => 'LGPLv2.1+',
+  dist => {
+    PREOP =>
 '@if test -f .git/HEAD; then \
 	git log --stat --after="Mon Feb 21 20:39:18 2011" >ChangeLog; \
 fi',
-        POSTOP   =>
+    POSTOP =>
 '@if test -f .git/HEAD; then \
 	git checkout ChangeLog; \
 fi',
