@@ -39,6 +39,17 @@ Run without options to (re)generate the configuration files."
   exit 0
 }
 
+ver=
+detect_version()
+{
+  ver=`perl -n -e'/VERSION.*(\d+)\.(\d+)\.(\d+)/ && print "$1.$2.$3"' \
+    < Makefile.PL`
+  if [ -z $ver ]; then
+    echo "VERSION not found in Makefile.PL"
+    exit 1
+  fi
+}
+
 while [ $# -gt 0 ]
 do
   case "$1" in
@@ -50,10 +61,11 @@ do
 done
 
 echo "Generate configuration files..."
-
+detect_version
 mkdir -p $dest \
 && echo "$i -> $dest..." \
 && swig -c++ -const -perl5 -I/usr/include $quvi_CFLAGS \
     -outdir $dest -o $wrap $i \
+&& sed -i "s/^@EXPORT = qw();$/&\nour \$VERSION='$ver';/" $dest/Quvi.pm \
 && echo "cp $pod -> $dest..." \
 && cp $pod $dest
