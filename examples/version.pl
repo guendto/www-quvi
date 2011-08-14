@@ -23,6 +23,8 @@
 
 use WWW::Quvi;
 
+#print "$WWW::Quvi::VERSION\n";
+
 printf "WWW::Quvi - %s\nlibquvi - %s\n",
   WWW::Quvi::version,
   WWW::Quvi::version(WWW::Quvi::libquviVersion);

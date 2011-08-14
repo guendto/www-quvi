@@ -21,10 +21,12 @@
 use warnings;
 use strict;
 
-use Test::More tests => 4;
+use Test::More tests => 5;
 use WWW::Quvi;
 
 # Version.
+
+like($WWW::Quvi::VERSION, qr{^\d+.\d+.\d+$});
 
 like(&WWW::Quvi::version, qr{^\d+.\d+.\d+$});
 
