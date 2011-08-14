@@ -32,6 +32,10 @@ information.
   WWW::Quvi::version(WWW::Quvi::libquviVersion);
   WWW::Quvi::version(WWW::Quvi::libquviVersionLong);
 
+=head2 Note
+
+C<$WWW::Quvi::VERSION> is also available
+
 =head1 WWW::Quvi::Options
 
 A container hash for the options used with libquvi that would normally
