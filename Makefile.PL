@@ -15,7 +15,7 @@ my @OBJS;
 push @OBJS, $_.'$(OBJ_EXT)'
     foreach qw(Media Options Query Quvi_wrap);
 
-my %pkgcfg_libquvi = ExtUtils::PkgConfig->find('libquvi >= 0.2.17');
+my %pkgcfg_libquvi = ExtUtils::PkgConfig->find('libquvi >= 0.2.16.1');
 
 my $libquvi = ExtUtils::Depends->new('libquvi');
 $libquvi->set_inc($pkgcfg_libquvi{cflags});
