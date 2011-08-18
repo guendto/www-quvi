@@ -32,9 +32,10 @@ like(&WWW::Quvi::version, qr{^\d+.\d+.\d+$});
 
 like(&WWW::Quvi::version(WWW::Quvi::ModuleVersion), qr{^\d+.\d+.\d+$});
 
-like(&WWW::Quvi::version(WWW::Quvi::libquviVersion), qr{^\d+.\d+.\d+$});
+like(&WWW::Quvi::version(WWW::Quvi::libquviVersion),
+     qr{^\d+.\d+.\d+(?:\d+|$)});
 
 like(&WWW::Quvi::version(WWW::Quvi::libquviVersionLong),
-  qr{^\d+.\d+.\d+.* built on \d+.\d+.\d+ .* (.*)$});
+     qr{^\d+.\d+.\d+.* built on \d+.\d+.\d+ .* (.*)$});
 
 # vim: set ts=2 sw=2 tw=72 expandtab:
