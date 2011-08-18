@@ -25,26 +25,27 @@ use Test::More;
 use WWW::Quvi;
 
 my %h = (
-  start_time    => '',
-  page_url      => '',
-  page_title    => '',
-  host          => '',
-  id            => '',
-  content_length=> -1,
-  content_type  => '',
-  file_suffix   => '',
-  url           => '',
-  thumbnail_url => '',
-  duration      => -1
-);
+         start_time     => '',
+         page_url       => '',
+         page_title     => '',
+         host           => '',
+         id             => '',
+         content_length => -1,
+         content_type   => '',
+         file_suffix    => '',
+         url            => '',
+         thumbnail_url  => '',
+         duration       => -1
+        );
 
 plan tests => keys(%h) + 1;
 
 my $m = new WWW::Quvi::Media;
 isa_ok($m, 'WWW::Quvi::Media');
 
-for my $k (keys %h) {
-  is($m->{$k}, $h{$k}); # Test default.
+for my $k (keys %h)
+{
+  is($m->{$k}, $h{$k});    # Test default.
 }
 
 # vim: set ts=2 sw=2 tw=72 expandtab:

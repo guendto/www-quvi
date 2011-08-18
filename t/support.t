@@ -29,11 +29,13 @@ my $q = new WWW::Quvi::Query;
 # Next (supported) website.
 
 my $n = 0;
-while ($q->{ok}) {
+while ($q->{ok})
+{
   my ($d) = $q->next_website;
   ++$n if $q->{ok};
 }
 isnt($n, 0);
+
 #diag $n;
 
 # Supported.

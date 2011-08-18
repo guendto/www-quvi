@@ -25,19 +25,20 @@ use Test::More;
 use WWW::Quvi;
 
 my %h = (
-  errmsg    => '',
-  quvi_code => 0,
-  resp_code => -1,
-  ok        => 1
-);
+         errmsg    => '',
+         quvi_code => 0,
+         resp_code => -1,
+         ok        => 1
+        );
 
 plan tests => keys(%h) + 1;
 
 my $q = new WWW::Quvi::Query;
 isa_ok($q, 'WWW::Quvi::Query');
 
-for my $k (keys %h) {
-  is($q->{$k}, $h{$k}); # Test default.
+for my $k (keys %h)
+{
+  is($q->{$k}, $h{$k});    # Test default.
 }
 
 # vim: set ts=2 sw=2 tw=72 expandtab:

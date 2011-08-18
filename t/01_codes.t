@@ -25,47 +25,44 @@ use Test::More;
 use WWW::Quvi;
 
 my @return = (
- WWW::Quvi::OK,
- WWW::Quvi::Mem,
- WWW::Quvi::BadHandle,
- WWW::Quvi::InvArg,
- WWW::Quvi::CurlInit,
- WWW::Quvi::Last,
- WWW::Quvi::AbortedByCallback,
- WWW::Quvi::LuaInit,
- WWW::Quvi::NoLuaWebsite,
- WWW::Quvi::NoLuaUtil,
- WWW::Quvi::NoSupport,
- WWW::Quvi::CallbackError,
- WWW::Quvi::IconvError,
- WWW::Quvi::LuaError
-);
+              WWW::Quvi::OK,                WWW::Quvi::Mem,
+              WWW::Quvi::BadHandle,         WWW::Quvi::InvArg,
+              WWW::Quvi::CurlInit,          WWW::Quvi::Last,
+              WWW::Quvi::AbortedByCallback, WWW::Quvi::LuaInit,
+              WWW::Quvi::NoLuaWebsite,      WWW::Quvi::NoLuaUtil,
+              WWW::Quvi::NoSupport,         WWW::Quvi::CallbackError,
+              WWW::Quvi::IconvError,        WWW::Quvi::LuaError
+             );
 
 my @proto = (
-  WWW::Quvi::ProtoHttp,
-  WWW::Quvi::ProtoMms,
-  WWW::Quvi::ProtoRtsp,
-  WWW::Quvi::ProtoRtmp,
-  WWW::Quvi::ProtoAll
-);
+             WWW::Quvi::ProtoHttp, WWW::Quvi::ProtoMms,
+             WWW::Quvi::ProtoRtsp, WWW::Quvi::ProtoRtmp,
+             WWW::Quvi::ProtoAll
+            );
 
 plan tests => scalar @return + scalar @proto;
 
 my $n = -1;
-foreach (@return) {
+foreach (@return)
+{
   is($_, ++$n);
-#  diag "$_,$n\n";
+
+  #  diag "$_,$n\n";
   $n = 0x40 if $n == WWW::Quvi::NoLuaUtil;
 }
 
 $n = 1;
-foreach (@proto) {
+foreach (@proto)
+{
   is($_, $n);
-#  diag "$_,$n\n";
-  if ($n == WWW::Quvi::ProtoRtmp) {
-    $n = 0x1|0x2|0x4|0x8;
+
+  #  diag "$_,$n\n";
+  if ($n == WWW::Quvi::ProtoRtmp)
+  {
+    $n = 0x1 | 0x2 | 0x4 | 0x8;
   }
-  else {
+  else
+  {
     $n = $n << 1;
   }
 }

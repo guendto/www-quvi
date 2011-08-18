@@ -23,6 +23,6 @@ use strict;
 
 use Test::More tests => 1;
 
-BEGIN { use_ok('WWW::Quvi') };
+BEGIN {use_ok('WWW::Quvi')}
 
 # vim: set ts=2 sw=2 tw=72 expandtab:

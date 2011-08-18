@@ -25,23 +25,24 @@ use Test::More;
 use WWW::Quvi;
 
 my %h = (
-  user_agent => '',
-  http_proxy => '',
-  format     => 'default',
-  verify     => 1,
-  verbose_libcurl => 0,
-  resolve    => 1,
-  category   => WWW::Quvi::ProtoAll
-);
+         user_agent      => '',
+         http_proxy      => '',
+         format          => 'default',
+         verify          => 1,
+         verbose_libcurl => 0,
+         resolve         => 1,
+         category        => WWW::Quvi::ProtoAll
+        );
 
-plan tests => keys(%h)*2 + 1;
+plan tests => keys(%h) * 2 + 1;
 
 my $o = new WWW::Quvi::Options;
 isa_ok($o, 'WWW::Quvi::Options');
 
-for my $k (keys %h) {
-  is($o->{$k}, $h{$k}); # Test default.
-  $o->{$k} = '1'; # Test set.
+for my $k (keys %h)
+{
+  is($o->{$k}, $h{$k});    # Test default.
+  $o->{$k} = '1';          # Test set.
   is($o->{$k}, 1);
 }
 

@@ -25,7 +25,7 @@ use Test::More;
 use WWW::Quvi;
 
 $ENV{HAVE_INTERNET}
-  ? plan tests => 2
+  ? plan tests    => 2
   : plan skip_all => 'Set HAVE_INTERNET to enable';
 
 use constant URL =>
@@ -37,6 +37,7 @@ my $q = new WWW::Quvi::Query;
 
 my $fmts = $q->formats(URL);
 is($q->{ok}, 1) or diag $q->{errmsg};
+
 #diag $fmts;
 
 # Media.
